@@ -1,0 +1,59 @@
+//general
+
+$contentWidth: 100%;
+$sfBaseRatio: 1.333;
+$pcBaseRatio: 1.618;
+
+$default_line_height: 1.5;
+$break_point_md: 600;
+
+//font size
+
+$fontSizeExLarge: 28px;
+$fontSizeLarge: round($fontSizeExLarge/$sfBaseRatio);
+$fontSizeMedium: round($fontSizeLarge/$sfBaseRatio);
+$fontSizeNormal: round($fontSizeMedium/$sfBaseRatio);
+$fontSizeSmall: round($fontSizeNormal/$sfBaseRatio);
+$min_font_size: 12px;
+$root_font_size: 16px;
+
+//margin padding
+
+$defaultSpaceValue: 1rem;
+$sfSpaceValue: $defaultSpaceValue * $sfBaseRatio;
+$pcSpaceValue: $defaultSpaceValue * $pcBaseRatio;
+$titleMargin: #{$sfBaseRatio}rem;
+$titleMargin_pc: #{$pcBaseRatio}rem;
+
+//color
+
+$black: #000;
+$gray: #333;
+$lightGray: #ddd;
+$superLightGray: #eee;
+$white: #fff;
+
+$orange: #ff8900;
+$second_orange: #feeed4;
+$light_orange: #fef9ec;
+$green: #19916b;
+
+//font family
+
+$sans-serif: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+
+$serif: 游明朝, "Yu Mincho", YuMincho, "Hiragino Mincho ProN", "Hiragino Mincho Pro", HGS明朝E, メイリオ, Meiryo, serif;
+
+//media size
+
+// Small tablets and large smartphones (landscape view)
+$screen-sm-min: 576px;
+
+// Small tablets (portrait view)
+$screen-md-min: 768px;
+
+// Tablets and small desktops
+$screen-lg-min: 992px;
+
+// Large tablets and desktops
+$screen-xl-min: 1200px;

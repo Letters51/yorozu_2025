@@ -1,0 +1,10 @@
+@import "_variables.scss";
+@import "_mixin.scss";
+
+/* meta-box */
+/* ============================================ */
+.meta-box {
+	&__fullwidth {
+		width: 100%;
+	}
+}

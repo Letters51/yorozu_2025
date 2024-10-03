@@ -1,0 +1,560 @@
+@charset "UTF-8";
+
+/**
+* general
+*/
+/**
+* font size 
+*/
+/**
+* margin padding  
+*/
+/**
+* color
+*/
+/**
+* font family
+*/
+/**
+* media size
+*/
+/****************************
+ *** font size px to rem ****
+ ****************************/
+/****************************
+ *** margin/padding steps ***
+ ****************************/
+/****************************
+ *** media query          ***
+ ****************************/
+/*--------------------------------------------------------------
+# general
+--------------------------------------------------------------*/
+body {
+  font-family: 游明朝, "Yu Mincho", YuMincho, "Hiragino Mincho ProN", "Hiragino Mincho Pro", HGS明朝E, メイリオ, Meiryo, "Noto Serif JP", serif;
+  background-color: #FFF;
+  transition: background-color 1s ease;
+}
+
+body.full-width-slider {
+  background-color: #f0d8d4;
+}
+
+body.profile {
+  background-color: #d3d1dc;
+}
+
+body.news {
+  background-color: #f3e5d8;
+}
+
+body.works {
+  background-color: #e7e5d8 !important;
+}
+
+body.gallery {
+  background-color: #cadddb;
+}
+
+body.movies {
+  background-color: #c9d6df;
+}
+
+body.contact-body {
+  background-color: #e8d9de;
+}
+
+#page {
+  padding: 25px 0;
+}
+
+a {
+  transition: opacity 0.5s ease;
+}
+
+a:hover,
+a img:hover {
+  opacity: 0.5;
+  transition: opacity 0.5s ease;
+}
+
+.show-sf {
+  display: inherit;
+}
+
+@media (min-width: 1200px) {
+  .show-sf {
+    display: none;
+  }
+}
+
+.show-pc {
+  display: none;
+}
+
+@media (min-width: 1200px) {
+  .show-pc {
+    display: inherit;
+  }
+}
+
+/*--------------------------------------------------------------
+# header
+--------------------------------------------------------------*/
+@media (min-width: 1200px) {
+  #masthead {
+    position: fixed;
+    width: 100%;
+    height: 95px;
+    z-index: 9;
+  }
+}
+
+.site-branding {
+  overflow: hidden;
+  transition: height 1s ease;
+  height: 45px;
+  position: relative;
+  z-index: 50;
+}
+
+.site-branding.hide {
+  height: 0px;
+  margin-bottom: 0;
+}
+
+.site-branding__title-image {
+  width: 80px;
+}
+
+@media (min-width: 1200px) {
+  .site-branding__title-image {
+    width: 100px;
+  }
+}
+
+/*--------------------------------------------------------------
+# main
+--------------------------------------------------------------*/
+.site-main {
+  position: relative;
+}
+
+@media (min-width: 1200px) {
+  .site-main {
+    margin-top: 0px;
+  }
+}
+
+/*--------------------------------------------------------------
+# global nav
+--------------------------------------------------------------*/
+.global-nav {
+  z-index: 50;
+}
+
+@media (min-width: 1200px) {
+  .global-nav__list {
+    width: 40%;
+  }
+}
+
+.global-nav__list li {
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 1200px) {
+  .global-nav__list li {
+    margin-bottom: 0;
+  }
+}
+
+.global-nav__list li a {
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.global-nav__insta-logo {
+  width: 16px;
+  height: auto;
+  vertical-align: middle;
+}
+
+/*--------------------------------------------------------------
+# title
+--------------------------------------------------------------*/
+.section-title {
+  font-size: 1.3em;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+@media (min-width: 1200px) {
+  .section-title {
+    font-size: 1.5em;
+  }
+}
+
+/*--------------------------------------------------------------
+# top slide
+--------------------------------------------------------------*/
+.top-slide-mobile {
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  margin-top: -70px;
+}
+
+.top-slide-mobile #full-width-slider {
+  height: 100vh !important;
+}
+
+.top-slide {
+  position: relative;
+  height: auto;
+  width: 95%;
+  overflow: hidden;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+@media (min-width: 1200px) {
+  .top-slide {
+    width: 1350px;
+    height: 870px;
+    padding-top: 95px;
+  }
+}
+
+.top-slide__image {
+  width: 100%;
+  vertical-align: bottom;
+}
+
+.top-slide__name {
+  width: 30%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/*--------------------------------------------------------------
+# works
+--------------------------------------------------------------*/
+.works-sf__list {
+  list-style-type: none;
+  margin-left: 0;
+  text-align: center;
+}
+
+.works-sf__image {
+  width: 100%;
+  vertical-align: bottom;
+}
+
+.works-sf__title {
+  font-style: normal;
+  text-align: center;
+}
+
+.works-sf__more {
+  border: none;
+  background-color: #333;
+  color: white;
+  padding: 15px 0;
+  margin: 0 auto;
+  display: block;
+  font-size: 12px;
+  width: 80%;
+  margin-top: 0.5rem;
+  text-decoration: none;
+}
+
+/*--------------------------------------------------------------
+# portfolio
+--------------------------------------------------------------*/
+/**
+* profile
+*/
+@media (min-width: 768px) {
+  .profile-portfolio {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: space-around;
+    justify-content: space-around;
+  }
+}
+
+.profile-portfolio__left {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .profile-portfolio__left {
+    width: 40%;
+  }
+}
+
+.profile-portfolio__image img {
+  width: 100%;
+}
+
+.profile-portfolio__right {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+@media (min-width: 768px) {
+  .profile-portfolio__right {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    width: 40%;
+    margin-top: 0rem;
+  }
+}
+
+.profile-portfolio__name {
+  font-size: 16px;
+}
+
+.profile-portfolio__name span {
+  font-size: 0.8em;
+}
+
+/*--------------------------------------------------------------
+# news
+--------------------------------------------------------------*/
+.news__body {
+  border-bottom: 1px dashed #999;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  .news__body {
+    padding-left: 10em;
+  }
+}
+
+.news__time {
+  width: 8em;
+  font-size: 12px;
+  font-size: 0.75rem;
+  float: none;
+}
+
+@media (min-width: 768px) {
+  .news__time {
+    font-size: 14px;
+    font-size: 0.875rem;
+    width: 10em;
+    float: left;
+  }
+}
+
+.news__title {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.news__content {
+  padding-left: 0.5rem;
+  color: #333;
+}
+
+/*--------------------------------------------------------------
+# contact
+--------------------------------------------------------------*/
+.contact {
+  margin: 0 auto;
+}
+
+@media (min-width: 1200px) {
+  .contact {
+    width: 600px;
+  }
+}
+
+.contact__list {
+  list-style-type: none;
+  margin-left: 0;
+}
+
+.contact__item::after {
+  content: "";
+  display: table;
+  height: 1px;
+  clear: both;
+}
+
+.contact__item input,
+.contact__item textarea {
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+
+  .contact__item input,
+  .contact__item textarea {
+    width: 80%;
+    float: right;
+  }
+}
+
+.contact__label {
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .contact__label {
+    float: left;
+    width: 15%;
+  }
+}
+
+.contact__annotation {
+  display: inline-block;
+}
+
+@media (min-width: 768px) {
+  .contact__annotation {
+    padding-left: 20%;
+  }
+}
+
+/* change contact form 7 default */
+@media (min-width: 768px) {
+  span.wpcf7-not-valid-tip {
+    width: 15%;
+  }
+}
+
+/*--------------------------------------------------------------
+# footer
+--------------------------------------------------------------*/
+.copy__site-info {
+  font-size: 12px;
+}
+
+/*--------------------------------------------------------------
+# loader
+--------------------------------------------------------------*/
+.page-loader {
+  background: #fff;
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 1;
+  transition: opacity 1s ease;
+  overflow: hidden;
+  z-index: 60;
+}
+
+.page-loader.fade-out {
+  opacity: 0;
+}
+
+@media (min-width: 1200px) {
+  .page-loader {
+    height: 100vh;
+    max-height: 970px;
+  }
+}
+
+.page-loader__video {
+  position: absolute;
+  display: block;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: auto;
+  width: 100%;
+  background-color: #fff;
+}
+
+@media (min-width: 1200px) {
+  .page-loader__video {
+    width: 1200px;
+    height: 100%;
+  }
+}
+
+.page-loader__image {
+  width: 421px;
+}
+
+/*--------------------------------------------------------------
+# general (will be transfered to the parent theme SCRATCH) 
+--------------------------------------------------------------*/
+.container {
+  overflow: hidden;
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 10vh;
+  padding-bottom: 10vh;
+}
+
+@media (min-width: 1200px) {
+  .container {
+    padding-left: 0%;
+    padding-right: 0%;
+  }
+}
+
+.container:nth-child(even) {
+  background: none;
+}
+
+.container--header {
+  padding: 0;
+}
+
+@media (min-width: 1200px) {
+  .container--header {
+    padding-top: 0;
+    padding-bottom: 20px;
+  }
+}
+
+.container__inner {
+  margin: 0 auto;
+  width: 95%;
+}
+
+@media (min-width: 1200px) {
+  .container__inner {
+    width: 65%;
+    max-width: 1350px;
+  }
+}
+
+.container__inner--header {
+  width: 95%;
+}
+
+.container--fullscreen {
+  height: auto;
+}
+
+@media (min-width: 1200px) {
+  .container--fullscreen {
+    height: 100vh;
+    max-height: 1000px;
+    min-height: 700px;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+  }
+}
