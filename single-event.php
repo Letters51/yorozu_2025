@@ -42,7 +42,7 @@ get_header();
 									<p>申込みは締め切られました。</p>
 								<?php else: ?>
 									<div class="form_wrapper">
-										<form action="<?php echo esc_url(get_template_directory_uri()); ?>/event_mail/mail.php" method="post" enctype="multipart/form-data">
+										<form action="<?php echo esc_url(get_template_directory_uri()); ?>/event-mail/mail.php" method="post" enctype="multipart/form-data">
 											<input type="hidden" name="event_id" value="<?php echo get_the_ID(); ?>">
 											<input type="hidden" name="form_type" value="event">
 											<table class="form_table">
@@ -69,18 +69,7 @@ get_header();
 												<tr>
 													<th>参加者<span class="require">*</span></th>
 													<td>
-														<template id="participant_input_template">
-															<div class="participant_input">
-																<p class="participant_number">参加者（１）</p>
-																<p>お名前</p>
-																<input size="30" type="text" name="参加者(1)名前" />
-																<p>ふりがな</p>
-																<input size="30" type="text" name="参加者(1)ふりがな" />
-																<p>役職</p>
-																<input size="30" type="text" name="参加者(1)役職" />
-															</div>
-														</template>
-														<div class="participant_input">
+														<div class="participant_input show">
 															<p class="participant_number">参加者（１）</p>
 															<p>お名前</p>
 															<input size="30" type="text" name="参加者(1)名前" required />
@@ -89,30 +78,32 @@ get_header();
 															<p>役職</p>
 															<input size="30" type="text" name="参加者(1)役職" required />
 														</div>
-														<div class="participant_input hide">
+														<fieldset class="participant_input hide" disabled>
 															<p class="participant_number">参加者（2）</p>
 															<p>お名前</p>
-															<input size="30" type="text" name="参加者(2)名前" disabled/>
+															<input size="30" type="text" name="参加者(2)名前" />
 															<p>ふりがな</p>
-															<input size="30" type="text" name="参加者(2)ふりがな" disabled/>
+															<input size="30" type="text" name="参加者(2)ふりがな" />
 															<p>役職</p>
-															<input size="30" type="text" name="参加者(2)役職" disabled/>
-														</div>
-														<div class="participant_input hide">
+															<input size="30" type="text" name="参加者(2)役職" />
+														</fieldset>
+														<fieldset class="participant_input hide" disabled>
 															<p class="participant_number">参加者（3）</p>
 															<p>お名前</p>
-															<input size="30" type="text" name="参加者(3)名前" disabled/>
+															<input size="30" type="text" name="参加者(3)名前" />
 															<p>ふりがな</p>
-															<input size="30" type="text" name="参加者(3)ふりがな" disabled/>
+															<input size="30" type="text" name="参加者(3)ふりがな" />
 															<p>役職</p>
-															<input size="30" type="text" name="参加者(3)役職" disabled/>
+															<input size="30" type="text" name="参加者(3)役職" />
+														</fieldset>
+														<div class="add_participant_btn_wrapper">
+															<button type="button" class="add_participant_btn">追加</button>
+															<button type="button" class="add_participant_btn add_participant_btn--minus">削除</button>
 														</div>
-														<button type="button" class="add_participant_btn">追加</button>
-														<button type="button" class="add_participant_btn add_participant_btn--minus">削除</button>
 													</td>
 												</tr>
 												<tr>
-													<th>申込みのきっかけ（どの様にして案内をしりましたか？）<span class="require">*</span></th>
+													<th>申込みのきっかけ<small>（どの様にして案内をしりましたか？）</small><span class="require">*</span></th>
 													<td><textarea size="30" type="text" name="きっかけ" required></textarea></td>
 												</tr>
 												<?php
@@ -138,7 +129,9 @@ get_header();
 													<td><textarea name="備考" cols="50" rows="5"></textarea></td>
 												</tr>
 											</table>
-											<input class="base_btn base_btn--orange" type="submit" value="　 確認 　" />
+											<div class="ta_center_table">
+												<button class="form_btn base_btn base_btn--orange" type="submit" type="button" value="確認">確認する</button>
+											</div>
 										</form>
 									</div>
 								<?php endif; ?>

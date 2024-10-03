@@ -319,57 +319,39 @@ function setHeights() {
       "add_participant_btn"
     );
     add_participant_btn[0].addEventListener("click", function () {
-      const participant_input = document.getElementById(
-        "participant_input_template"
-      );
-      const participant_inputs =
-        document.getElementsByClassName("participant_input");
-   
-      const clone = participant_input.content.cloneNode(true);
-      const inputs = clone.querySelectorAll("input");
-      const participant_number = clone.querySelector(".participant_number");
-      participant_number.innerText =
-        "参加者(" + (participant_inputs.length + 1) + ")";
-      inputs[0].name = "参加者(" + (participant_inputs.length + 1) + ")名前";
-      inputs[1].name =
-        "参加者(" + (participant_inputs.length + 1) + ")ふりがな";
-      inputs[2].name = "参加者(" + (participant_inputs.length + 1) + ")役職";
-      // get last participant_input
-      const last_participant_input =
-        participant_inputs[participant_inputs.length - 1];
-      // insert clone after last_participant_input
-      last_participant_input.parentNode.insertBefore(
-        clone,
-        last_participant_input.nextSibling
-      );
+      //add
+      const opens = document.querySelectorAll(".participant_input.show");
+      // get last participant input
+      const last_participant_input = opens[opens.length - 1];
+      // get next element
+      const next_sibling = last_participant_input.nextElementSibling;
+      // if next sibling is not null, add participant input
+      if (next_sibling != null) {
+        next_sibling.classList.add("show");
+        next_sibling.removeAttribute("disabled");
+      }
       checkButtonStatus();
     });
     const remove_participant_btn = document.getElementsByClassName(
       "add_participant_btn--minus"
     );
-    //
-    // remove_participant_btn
-    function removeParticipantInput() {
-      const participant_inputs =
-        document.getElementsByClassName("participant_input");
-      console.log(participant_inputs.length);
-      remove_participant_btn[0].addEventListener("click", function () {
-        const participant_inputs =
-          document.getElementsByClassName("participant_input");
-        participant_inputs[participant_inputs.length - 1].remove();
-        checkButtonStatus();
-      });
-    }
+    remove_participant_btn[0].addEventListener("click", function () {
+      //remove
+      const opens = document.querySelectorAll(".participant_input.show");
+      // get last participant input
+      const last_participant_input = opens[opens.length - 1];
+      // get previous element
+      // if previous sibling is not null, remove participant input
+      if (last_participant_input != null) {
+        last_participant_input.classList.remove("show");
+        last_participant_input.setAttribute("disabled", "disabled");
+      }
+      checkButtonStatus();
+    });
+
     function checkButtonStatus() {
       const participant_inputs =
-        document.getElementsByClassName("participant_input");
-      if (participant_inputs.length < 2) {
-        remove_participant_btn[0].disabled = true;
-        remove_participant_btn[0].classList.add("disabled");
-      } else {
-        remove_participant_btn[0].disabled = false;
-        remove_participant_btn[0].classList.remove("disabled");
-      }
+        document.querySelectorAll(".participant_input.show");
       if (participant_inputs.length > 2) {
         add_participant_btn[0].disabled = true;
         add_participant_btn[0].classList.add("disabled");
@@ -377,9 +359,14 @@ function setHeights() {
         add_participant_btn[0].disabled = false;
         add_participant_btn[0].classList.remove("disabled");
       }
+      if (participant_inputs.length < 2) {
+        remove_participant_btn[0].disabled = true;
+        remove_participant_btn[0].classList.add("disabled");
+      } else {
+        remove_participant_btn[0].disabled = false;
+        remove_participant_btn[0].classList.remove("disabled");
+      }
     }
-    checkButtonStatus();
-    removeParticipantInput();
   }
   addParticipantInput();
 })();

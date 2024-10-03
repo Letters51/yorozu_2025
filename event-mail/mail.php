@@ -605,116 +605,60 @@ if (($confirmDsp == 0 || $sendmail == 1) && $empty_flag != 1) {
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 		<meta name="format-detection" content="telephone=no">
 		<title>確認画面</title>
-		<style type="text/css">
-			/* 自由に編集下さい */
-			#formWrap {
-				width: 700px;
-				margin: 0 auto;
-				color: #555;
-				line-height: 120%;
-				font-size: 90%;
-			}
-
-			table.formTable {
-				width: 100%;
-				margin: 0 auto;
-				border-collapse: collapse;
-			}
-
-			table.formTable td,
-			table.formTable th {
-				border: 1px solid #ccc;
-				padding: 10px;
-			}
-
-			table.formTable th {
-				width: 30%;
-				font-weight: normal;
-				background: #efefef;
-				text-align: left;
-			}
-
-			p.error_messe {
-				margin: 5px 0;
-				color: red;
-			}
-
-			/*　簡易版レスポンシブ用CSS（必要最低限のみとしています。ブレークポイントも含め自由に設定下さい）　*/
-			@media screen and (max-width:572px) {
-				#formWrap {
-					width: 95%;
-					margin: 0 auto;
-				}
-
-				table.formTable th,
-				table.formTable td {
-					width: auto;
-					display: block;
-				}
-
-				table.formTable th {
-					margin-top: 5px;
-					border-bottom: 0;
-				}
-
-				form input[type="submit"],
-				form input[type="reset"],
-				form input[type="button"] {
-					display: block;
-					width: 100%;
-					height: 40px;
-				}
-			}
-		</style>
+		<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/reset.css">
+		<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/base.min.css">
+		<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/add.min.css">
 	</head>
 
 	<body>
-
-		<!-- ▲ Headerやその他コンテンツなど　※自由に編集可 ▲-->
-
-		<!-- ▼************ 送信内容表示部　※編集は自己責任で ************ ▼-->
-		<div id="formWrap">
-			<?php if ($empty_flag == 1) { ?>
-				<div align="center">
-					<h4>入力にエラーがあります。下記をご確認の上「戻る」ボタンにて修正をお願い致します。</h4>
-					<?php echo $errm; ?><br /><br /><input type="button" value=" 前画面に戻る " onClick="history.back()">
+		<div class="container container--mail">
+			<div class="container__inner">
+				<div class="logo_area mb_05">
+					<div class="site-branding">
+						<a href="https://dev.ibaraki-yorozu.go.jp" class="custom-logo-link" rel="home" aria-current="page">
+							<img width="80" height="81" src="https://dev.ibaraki-yorozu.go.jp/wp-content/themes/scratch-master/assets/images/common/top_logo@1x.png" alt="茨城よろず支援拠点ロゴ" data-src="https://dev.ibaraki-yorozu.go.jp/wp-content/themes/scratch-master/assets/images/common/top_logo@1x.png" decoding="async" data-srcset="https://dev.ibaraki-yorozu.go.jp/wp-content/themes/scratch-master/assets/images/common/top_logo@2x.png 2x,https://dev.ibaraki-yorozu.go.jp/wp-content/themes/scratch-master/assets/images/common/top_logo@1x.png 1x" class=" ls-is-cached lazyloaded" data-eio-rwidth="80" data-eio-rheight="81" srcset="https://dev.ibaraki-yorozu.go.jp/wp-content/themes/scratch-master/assets/images/common/top_logo@2x.png 2x,https://dev.ibaraki-yorozu.go.jp/wp-content/themes/scratch-master/assets/images/common/top_logo@1x.png 1x"><noscript><img width="80" height="81" srcset="https://dev.ibaraki-yorozu.go.jp/wp-content/themes/scratch-master/assets/images/common/top_logo@2x.png 2x,https://dev.ibaraki-yorozu.go.jp/wp-content/themes/scratch-master/assets/images/common/top_logo@1x.png 1x" src="https://dev.ibaraki-yorozu.go.jp/wp-content/themes/scratch-master/assets/images/common/top_logo@1x.png" alt="茨城よろず支援拠点ロゴ" data-eio="l"></noscript>
+						</a>
+					</div><!-- .site-branding -->
+					<div class="site_name">
+						<p class="site_name__rub">中小企業・小規模事業者のための無料経営相談所</p>
+						<a href="https://dev.ibaraki-yorozu.go.jp">
+							<p class="site_name__title singo_maru">茨城県よろず支援拠点</p>
+						</a>
+					</div>
 				</div>
-			<?php } else { ?>
-				<h3>確認画面</h3>
-				<p align="center">以下の内容で間違いがなければ、「送信する」ボタンを押してください。</p>
-				<?php iniGetAddMailXHeader($iniAddX); //php.ini設定チェック
-				?>
-				<form action="<?php echo h($_SERVER['SCRIPT_NAME']); ?>" method="POST">
-					<table class="formTable">
-						<?php echo confirmOutput($_POST); //入力内容を表示
-						?>
-					</table>
-					<p align="center"><input type="hidden" name="mail_set" value="confirm_submit">
-						<input type="hidden" name="httpReferer" value="<?php echo h($_SERVER['HTTP_REFERER']); ?>">
-						<?php
-						if (isset($_FILES[$upfile_key]["tmp_name"])) {
-							$file_count = count($_FILES[$upfile_key]["tmp_name"]);
-							for ($i = 0; $i < $file_count; $i++) {
-								if (!empty($_FILES[$upfile_key]["tmp_name"][$i])) {
-						?>
-									<input type="hidden" name="upfilePath[]" value="<?php echo h($upFilePath[$i]); ?>">
-									<input type="hidden" name="upfileType[]" value="<?php echo h($_FILES[$upfile_key]['type'][$i]); ?>">
-									<input type="hidden" name="upfileOriginName[]" value="<?php echo h($_FILES[$upfile_key]['name'][$i]); ?>">
-						<?php
-								}
-							}
-						}
-						?>
-						<input type="submit" value="　送信する　">
-						<input type="button" value="前画面に戻る" onClick="history.back()">
-					</p>
-				</form>
-			<?php copyright();
-			} ?>
-		</div><!-- /formWrap -->
-		<!-- ▲ *********** 送信内容確認部　※編集は自己責任で ************ ▲-->
-
-		<!-- ▼ Footerその他コンテンツなど　※編集可 ▼-->
+				<!-- ▲ Headerやその他コンテンツなど　※自由に編集可 ▲-->
+				<!-- ▼************ 送信内容表示部　※編集は自己責任で ************ ▼-->
+				<div id="formWrap" class="ta_center">
+					<?php if ($empty_flag == 1) { ?>
+						<div>
+							<h3 class="mb_02 form_ttl">確認画面</h3>
+							<h4 class="warning_txt mb_xx">入力にエラーがあります。下記をご確認の上「戻る」ボタンにて修正をお願い致します。</h4>
+							<?php echo $errm; ?><br /><br />
+							<button class="btn_submit btn_submit--back" type="button" value="戻る" onClick="history.back()">戻る</button>
+						</div>
+					<?php } else { ?>
+						<div class="confirm_wrap">
+							<h3 class="mb_02 form_ttl">確認画面</h3>
+							<p class="mb_01">以下の内容で間違いがなければ、「送信する」ボタンを押してください。</p>
+							<form action="<?php echo h($_SERVER['SCRIPT_NAME']); ?>" method="POST">
+								<table class="form_table_confirm mb_02">
+									<?php echo confirmOutput($_POST); //入力内容を表示
+									?>
+								</table>
+									<input type="hidden" name="mail_set" value="confirm_submit">
+									<input type="hidden" name="httpReferer" value="<?php echo h($_SERVER['HTTP_REFERER']); ?>">
+								<div class="btn_wrap">
+									<button class="form_btn base_btn base_btn--gray" type="button" value="戻る" onClick="history.back()">戻る</button>
+									<button class="form_btn base_btn base_btn--orange" type="submit" type="button" value="送信する">送信する</button>
+								</div>
+							</form>
+						</div>
+					<?php } ?>
+				</div><!-- /formWrap -->
+				<!-- ▲ *********** 送信内容確認部　※編集は自己責任で ************ ▲-->
+			</div>
+			<!-- ▼ Footerその他コンテンツなど　※編集可 ▼-->
+		</div>
 	</body>
 
 	</html>

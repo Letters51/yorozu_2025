@@ -330,7 +330,8 @@
   width: 100%;
   table-layout: fixed;
 }
-.form_table input, .form_table textarea {
+.form_table input,
+.form_table textarea {
   width: 100%;
   background: #fff;
   font-size: 16px;
@@ -340,8 +341,12 @@
 .form_table th {
   width: 20%;
 }
-.form_table th, .form_table td {
+.form_table th,
+.form_table td {
   padding: 20px;
+}
+.form_table th {
+  padding-right: 0;
 }
 
 .add_participant_btn.disabled {
@@ -371,6 +376,9 @@
 .participant_input.hide {
   display: none;
 }
+.participant_input.show {
+  display: block;
+}
 
 p.participant_number {
   font-weight: 500;
@@ -393,4 +401,58 @@ p.participant_number {
 }
 .add_participant_btn--minus::before {
   content: "－";
+}
+
+.add_participant_btn_wrapper {
+  margin-top: -2rem;
+}
+
+.ta_center_table {
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.container--mail {
+  padding: 3rem 0;
+}
+
+.form_ttl {
+  font-weight: 700;
+  font-size: 1.5em;
+}
+
+.form_table_confirm {
+  border: 1px solid #ccc;
+  max-width: 780px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.form_table_confirm th,
+.form_table_confirm td {
+  border: 1px solid #ccc;
+  padding: 0.8rem;
+  text-align: left;
+}
+.form_table_confirm th {
+  background: #eee;
+}
+
+.btn_wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 1rem;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.form_btn {
+  width: 200px;
+}
+
+.base_btn--gray {
+  background: #333;
+  color: #fff;
 }
