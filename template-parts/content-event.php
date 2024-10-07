@@ -16,7 +16,7 @@
 			if ($categories) {
 				foreach ($categories as $category) {
 					$cat_class = "event_cat ds_inline_block event_cat--" . $category->slug;
-					echo "<a href='"  . esc_html(get_category_link($category->term_id)) . "'><span class='" . $cat_class . "'>" . $category->name . "</a></span>";
+					echo "<a href='"  . esc_html(get_category_link($category->term_id)) . "'><span class='" . $cat_class . "'>" . $category->name . "</span></a>";
 				};
 			} ?>
 		</div><!-- .entry-meta -->

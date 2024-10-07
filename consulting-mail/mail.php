@@ -1,9 +1,8 @@
 <?php header("Content-Type:text/html;charset=utf-8");
 //get wp header
 require('../../../../wp-config.php');
-$replay_txt = get_theme_mod('event_mail_auto_reply', '');
-$thanks_url = $thanks_url . '/event-form-thanks/';
-
+$replay_txt = get_theme_mod('applying_form_section_auto_reply', '');
+$thanks_url = $thanks_url . '/consulting-form-thanks/';
 ?>
 <?php //error_reporting(E_ALL | E_STRICT);
 ##-----------------------------------------------------------------------------------------------------------------##
@@ -121,7 +120,7 @@ $re_subject = "送信ありがとうございました";
 
 //フォーム側の「名前」箇所のname属性の値　※自動返信メールの「○○様」の表示で使用します。
 //指定しない、または存在しない場合は、○○様と表示されないだけです。あえて無効にしてもOK
-$dsp_name = '企業名';
+$dsp_name = '会社名';
 
 //自動返信メールの冒頭の文言 ※日本語部分のみ変更可
 $remail_text = $replay_txt;
@@ -385,16 +384,7 @@ $name_bcc_address_array = array(
 if ($useToken == 1 && $confirmDsp == 1) {
 	session_name('PHPMAILFORMSYSTEM');
 	session_start();
-
-	$_SESSION['participant02_name'] = $_POST['参加者(2)名前'];
-	$_SESSION['participant02_ruby'] = $_POST['参加者(2)ふりがな'];
-	$_SESSION['participant02_position'] = $_POST['参加者(2)役職'];
-	$_SESSION['participant03_name'] = $_POST['参加者(3)名前'];
-	$_SESSION['participant03_ruby'] = $_POST['参加者(3)ふりがな'];
-	$_SESSION['participant03_position'] = $_POST['参加者(3)役職'];
-
 }
-
 $encode = "UTF-8"; //このファイルの文字コード定義（変更不可）
 //選択項目によるメールアドレスのセット
 if (isset($_POST[$setName]) && array_key_exists($_POST[$setName], $name_address_array)) {
@@ -595,7 +585,7 @@ if (($confirmDsp == 0 || $sendmail == 1) && $empty_flag != 1) {
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 		<meta name="format-detection" content="telephone=no">
-		<title>イベント申し込み確認画面</title>
+		<title>確認画面</title>
 		<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/reset.css">
 		<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/base.min.css">
 		<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/add.min.css">
@@ -622,14 +612,14 @@ if (($confirmDsp == 0 || $sendmail == 1) && $empty_flag != 1) {
 				<div id="formWrap" class="ta_center">
 					<?php if ($empty_flag == 1) { ?>
 						<div>
-							<h3 class="mb_02 form_ttl">イベント申し込み確認画面</h3>
+							<h3 class="mb_02 form_ttl">相談内容確認画面</h3>
 							<h4 class="warning_txt mb_xx">入力にエラーがあります。下記をご確認の上「戻る」ボタンにて修正をお願い致します。</h4>
 							<?php echo $errm; ?><br /><br />
 							<button class="btn_submit btn_submit--back" type="button" value="戻る" onClick="history.back()">戻る</button>
 						</div>
 					<?php } else { ?>
 						<div class="confirm_wrap">
-							<h3 class="mb_02 form_ttl">イベント申し込み確認画面</h3>
+							<h3 class="mb_02 form_ttl">相談内容確認画面</h3>
 							<p class="mb_01">以下の内容で間違いがなければ、「送信する」ボタンを押してください。</p>
 							<form action="<?php echo h($_SERVER['SCRIPT_NAME']); ?>" method="POST">
 								<table class="form_table_confirm mb_03">
@@ -1015,7 +1005,7 @@ if (($jumpPage == 0 && $sendmail == 1) || ($jumpPage == 0 && ($confirmDsp == 0 &
 		function mailToUser($arr, $dsp_name, $remail_text, $mailFooterDsp, $mailSignature, $encode)
 		{
 			$userBody = '';
-			if (isset($arr[$dsp_name])) $userBody = h($arr[$dsp_name]) . " 御中\n";
+			if (isset($arr[$dsp_name])) $userBody = h($arr[$dsp_name]) . " 様\n";
 			$userBody .= $remail_text;
 			$userBody .= "\n＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝\n\n";
 			$userBody .= postToMail($arr); //POSTデータを関数からセット
@@ -1419,7 +1409,7 @@ if (($jumpPage == 0 && $sendmail == 1) || ($jumpPage == 0 && ($confirmDsp == 0 &
 
 	<body>
 		<?php if (isset($login_error)) echo $login_error; ?>
-		<h1 class="mt_05 fs_24 ta_center">イベント申し込みCSVダウンロード認証画面</h1>
+		<h1 class="mt_05 fs_24 ta_center">相談フォームCSVダウンロード認証画面</h1>
 		<div id="login_form">
 			<p class="mb_03 ta_center">CSVをダウンロードするには認証する必要があります。<br />
 				ID、パスワードを記述して下さい。<br />管理者以外のアクセスは固くお断りします。</p>

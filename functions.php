@@ -1216,8 +1216,13 @@ function mytheme_customize_register_event_mail($wp_customize)
 	$wp_customize->add_control(new WP_Customize_Control($wp_customize, 'donwnload_csv_event', array(
 		'label'      => __('イベントメールCSVダウンロード', 'mytheme'),
 		'section'    => 'event_section',
-		'settings'   => 'donwnload_csv_event',
+		'settings'   => array(),
 		'type' => 'button',
+		'input_attrs' => array(
+			'value' => "イベントメールCSVダウンロード",
+			'class' => 'button button-primary',
+			'onclick' => 'window.open("' . home_url() . '/wp-content/themes/scratch-master/event-mail/mail.php?mode=download")',
+		),
 	)));
 }
 add_action('customize_register', 'mytheme_customize_register_event_mail');
@@ -1245,6 +1250,24 @@ function mytheme_customize_register_applying_form($wp_customize)
 		'settings'   => 'applying_form_section_auto_reply',
 		'type' => 'textarea',
 	)));
+	// Add a new setting
+	$wp_customize->add_setting('donwnload_csv_applying', array(
+		'default'    => '',
+		'transport'  => 'refresh',
+	));
+
+	// Add a control to the setting
+	$wp_customize->add_control(new WP_Customize_Control($wp_customize, 'donwnload_csv_applying', array(
+		'label'      => __('相談会フォームCSVダウンロード', 'mytheme'),
+		'section'    => 'applying_form_section',
+		'settings'   => array(),
+		'type' => 'button',
+		'input_attrs' => array(
+			'value' => "相談会フォームCSVをダウンロード", // 
+			'class' => 'button button-primary', // 
+			'onclick' => 'window.open("' . home_url() . '/wp-content/themes/scratch-master/consulting-mail/mail.php?mode=download")',
+		),
+	)));
 }
 add_action('customize_register', 'mytheme_customize_register_applying_form');
 
@@ -1257,13 +1280,11 @@ function mytheme_customize_register_contact_form($wp_customize)
 		'panel'    => 'メールフォーム設定', // Assign the section to the panel
 		'priority'   => 30,
 	));
-
 	// Add a new setting
 	$wp_customize->add_setting('contact_form_section_auto_reply', array(
 		'default'    => '',
 		'transport'  => 'refresh',
 	));
-
 	// Add a control to the setting
 	$wp_customize->add_control(new WP_Customize_Control($wp_customize, 'contact_form_section_auto_reply', array(
 		'label'      => __('自動返信メール内容', 'mytheme'),
@@ -1271,5 +1292,126 @@ function mytheme_customize_register_contact_form($wp_customize)
 		'settings'   => 'contact_form_section_auto_reply',
 		'type' => 'textarea',
 	)));
+	// Add a new setting
+	$wp_customize->add_setting('donwnload_csv_contact', array(
+		'default'    => '',
+		'transport'  => 'refresh',
+	));
+	// Add a control to the setting
+	$wp_customize->add_control(new WP_Customize_Control($wp_customize, 'donwnload_csv_contact', array(
+		'label'      => __('お問い合わせCSVダウンロード', 'mytheme'),
+		'section'    => 'contact_form_section',
+		'settings'   => array(),
+		'type' => 'button',
+		'input_attrs' => array(
+			'value' => "お問い合わせCSVをダウンロード", // 
+			'class' => 'button button-primary', // 
+			'onclick' => 'window.open("' . home_url() . '/wp-content/themes/scratch-master/contact-mail/mail.php?mode=download")',
+		),
+	)));
 }
 add_action('customize_register', 'mytheme_customize_register_contact_form');
+
+//
+//
+function getPossibleDates($city)
+{
+$ret = "";
+
+switch ($city) {
+case "tsukuba":
+$ret .= '
+<option value="令和６年４月１８日（木）  １３：００～１４：３０">令和６年４月１８日（木）  １３：００～１４：３０</option>
+<option value="令和６年４月１８日（木）  １４：３０～１６：００">令和６年４月１８日（木）  １４：３０～１６：００</option>
+<option value="令和６年５月１６日（木）  １３：００～１４：３０">令和６年５月１６日（木）  １３：００～１４：３０</option>
+<option value="令和６年５月１６日（木）  １４：３０～１６：００">令和６年５月１６日（木）  １４：３０～１６：００</option>
+<option value="令和６年６月２０日（木）  １３：００～１４：３０">令和６年６月２０日（木）  １３：００～１４：３０</option>
+<option value="令和６年６月２０日（木）  １４：３０～１６：００">令和６年６月２０日（木）  １４：３０～１６：００</option>
+<option value="令和６年７月１８日（木）  １３：００～１４：３０">令和６年７月１８日（木）  １３：００～１４：３０</option>
+<option value="令和６年７月１８日（木）  １４：３０～１６：００">令和６年７月１８日（木）  １４：３０～１６：００</option>
+<option value="令和６年８月２２日（木）  １３：００～１４：３０">令和６年８月２２日（木）  １３：００～１４：３０</option>
+<option value="令和６年８月２２日（木）  １４：３０～１６：００">令和６年８月２２日（木）  １４：３０～１６：００</option>
+<option value="令和６年９月１９日（木）  １３：００～１４：３０">令和６年９月１９日（木）  １３：００～１４：３０</option>
+<option value="令和６年９月１９日（木）  １４：３０～１６：００">令和６年９月１９日（木）  １４：３０～１６：００</option>
+<option value="令和６年１０月１７日（木）  １３：００～１４：３０">令和６年１０月１７日（木）  １３：００～１４：３０</option>
+<option value="令和６年１０月１７日（木）  １４：３０～１６：００">令和６年１０月１７日（木）  １４：３０～１６：００</option>
+<option value="令和６年１１月２１日（木）  １３：００～１４：３０">令和６年１１月２１日（木）  １３：００～１４：３０</option>
+<option value="令和６年１１月２１日（木）  １４：３０～１６：００">令和６年１１月２１日（木）  １４：３０～１６：００</option>
+<option value="令和６年１２月１９日（木）  １３：００～１４：３０">令和６年１２月１９日（木）  １３：００～１４：３０</option>
+<option value="令和６年１２月１９日（木）  １４：３０～１６：００">令和６年１２月１９日（木）  １４：３０～１６：００</option>
+<option value="令和７年１月２３日（木）  １３：００～１４：３０">令和７年１月２３日（木）  １３：００～１４：３０</option>
+<option value="令和７年１月２３日（木）  １４：３０～１６：００">令和７年１月２３日（木）  １４：３０～１６：００</option>
+<option value="令和７年２月２０日（木）  １３：００～１４：３０">令和７年２月２０日（木）  １３：００～１４：３０</option>
+<option value="令和７年２月２０日（木）  １４：３０～１６：００">令和７年２月２０日（木）  １４：３０～１６：００</option>
+<option value="令和７年３月１３日（木）  １３：００～１４：３０">令和７年３月１３日（木）  １３：００～１４：３０</option>
+<option value="令和７年３月１３日（木）  １４：３０～１６：００">令和７年３月１３日（木）  １４：３０～１６：００</option>';
+break;
+case "hitachinaka":
+$ret .= '
+<option value="令和６年４月１０日（水） １４：００～１５：３０">令和６年４月１０日（水） １４：００～１５：３０</option>
+<option value="令和６年４月１０日（水） １５：３０～１７：００">令和６年４月１０日（水） １５：３０～１７：００</option>
+<option value="令和６年５月１５日（水） １４：００～１５：３０">令和６年５月１５日（水） １４：００～１５：３０</option>
+<option value="令和６年５月１５日（水） １５：３０～１７：００">令和６年５月１５日（水） １５：３０～１７：００</option>
+<option value="令和６年６月１９日（水） １４：００～１５：３０">令和６年６月１９日（水） １４：００～１５：３０</option>
+<option value="令和６年６月１９日（水） １５：３０～１７：００">令和６年６月１９日（水） １５：３０～１７：００</option>
+<option value="令和６年７月１７日（水） １４：００～１５：３０">令和６年７月１７日（水） １４：００～１５：３０</option>
+<option value="令和６年７月１７日（水） １５：３０～１７：００">令和６年７月１７日（水） １５：３０～１７：００</option>
+<option value="令和６年８月２１日（水） １４：００～１５：３０">令和６年８月２１日（水） １４：００～１５：３０</option>
+<option value="令和６年８月２１日（水） １５：３０～１７：００">令和６年８月２１日（水） １５：３０～１７：００</option>
+<option value="令和６年９月１８日（水） １４：００～１５：３０">令和６年９月１８日（水） １４：００～１５：３０</option>
+<option value="令和６年９月１８日（水） １５：３０～１７：００">令和６年９月１８日（水） １５：３０～１７：００</option>
+<option value="令和６年１０月１６日（水）１４：００～１５：３０">令和６年１０月１６日（水）１４：００～１５：３０</option>
+<option value="令和６年１０月１６日（水）１５：３０～１７：００">令和６年１０月１６日（水）１５：３０～１７：００</option>
+<option value="令和６年１１月２０日（水）１４：００～１５：３０">令和６年１１月２０日（水）１４：００～１５：３０</option>
+<option value="令和６年１１月２０日（水）１５：３０～１７：００">令和６年１１月２０日（水）１５：３０～１７：００</option>
+<option value="令和６年１２月１８日（水）１４：００～１５：３０">令和６年１２月１８日（水）１４：００～１５：３０</option>
+<option value="令和６年１２月１８日（水）１５：３０～１７：００">令和６年１２月１８日（水）１５：３０～１７：００</option>
+<option value="令和７年１月２２日（水）１４：００～１５：３０">令和７年１月２２日（水）１４：００～１５：３０</option>
+<option value="令和７年１月２２日（水）１５：３０～１７：００">令和７年１月２２日（水）１５：３０～１７：００</option>
+<option value="令和７年２月１９日（水） １４：００～１５：３０">令和７年２月１９日（水） １４：００～１５：３０</option>
+<option value="令和７年２月１９日（水） １５：３０～１７：００">令和７年２月１９日（水） １５：３０～１７：００</option>
+<option value="令和７年３月１９日（水） １４：００～１５：３０">令和７年３月１９日（水） １４：００～１５：３０</option>
+<option value="令和７年３月１９日（水） １５：３０～１７：００">令和７年３月１９日（水） １５：３０～１７：００</option>';
+break;
+case "hitachi":
+$ret .= '
+<option value="令和６年４月１６日（火） １３：００～１４：３０">令和６年４月１６日（火） １３：００～１４：３０</option>
+<option value="令和６年４月１６日（火） １４：３０～１６：００">令和６年４月１６日（火） １４：３０～１６：００</option>
+<option value="令和６年５月１４日（火） １３：００～１４：３０">令和６年５月１４日（火） １３：００～１４：３０</option>
+<option value="令和６年５月１４日（火） １４：３０～１６：００">令和６年５月１４日（火） １４：３０～１６：００</option>
+<option value="令和６年６月１８日（火） １３：００～１４：３０">令和６年６月１８日（火） １３：００～１４：３０</option>
+<option value="令和６年６月１８日（火） １４：３０～１６：００">令和６年６月１８日（火） １４：３０～１６：００</option>
+<option value="令和６年７月１６日（火） １３：００～１４：３０">令和６年７月１６日（火） １３：００～１４：３０</option>
+<option value="令和６年７月１６日（火） １４：３０～１６：００">令和６年７月１６日（火） １４：３０～１６：００</option>
+<option value="令和６年８月２０日（火） １３：００～１４：３０">令和６年８月２０日（火） １３：００～１４：３０</option>
+<option value="令和６年８月２０日（火） １４：３０～１６：００">令和６年８月２０日（火） １４：３０～１６：００</option>
+<option value="令和６年９月１７日（火） １３：００～１４：３０">令和６年９月１７日（火） １３：００～１４：３０</option>
+<option value="令和６年９月１７日（火） １４：３０～１６：００">令和６年９月１７日（火） １４：３０～１６：００</option>
+<option value="令和６年１０月１５日（火） １３：００～１４：３０">令和６年１０月１５日（火） １３：００～１４：３０</option>
+<option value="令和６年１０月１５日（火） １４：３０～１６：００">令和６年１０月１５日（火） １４：３０～１６：００</option>
+<option value="令和６年１１月１９日（火） １３：００～１４：３０">令和６年１１月１９日（火） １３：００～１４：３０</option>
+<option value="令和６年１１月１９日（火） １４：３０～１６：００">令和６年１１月１９日（火） １４：３０～１６：００</option>
+<option value="令和６年１２月１７日（火） １３：００～１４：３０">令和６年１２月１７日（火） １３：００～１４：３０</option>
+<option value="令和６年１２月１７日（火） １４：３０～１６：００">令和６年１２月１７日（火） １４：３０～１６：００</option>
+<option value="令和７年１月２１日（火） １３：００～１４：３０">令和７年１月２１日（火） １３：００～１４：３０</option>
+<option value="令和７年１月２１日（火） １４：３０～１６：００">令和７年１月２１日（火） １４：３０～１６：００</option>
+<option value="令和７年２月１８日（火） １３：００～１４：３０">令和７年２月１８日（火） １３：００～１４：３０</option>
+<option value="令和７年２月１８日（火） １４：３０～１６：００">令和７年２月１８日（火） １４：３０～１６：００</option>
+<option value="令和７年３月１８日（火） １３：００～１４：３０">令和７年３月１８日（火） １３：００～１４：３０</option>
+<option value="令和７年３月１８日（火） １４：３０～１６：００">令和７年３月１８日（火） １４：３０～１６：００</option>
+';
+}
+return $ret;
+}
+//
+//
+function getConsultingType()
+{
+	$ret = "";
+	$ret .= '
+	<option value="経営・技術・販路">経営・技術・販路</option>
+	<option value="知的財産">知的財産</option>
+	<option value="海外展開">海外展開</option>
+	';
+	return $ret;
+}

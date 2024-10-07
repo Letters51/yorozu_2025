@@ -21,57 +21,79 @@ get_header();
 
       <!-- reading -->
       <div class="container__inner">
-        <p>茨城県よろず支援拠点では、中小企業・小規模事業者の皆様のために無料で経営相談を行っております。お気軽にお問い合わせください。専門のコーディネーターが親身になって対応いたします。</p>
+        <p class="mb_02 ta_center">下記項目をご記入ください。後日担当者からご連絡させていただきます。</p>
 
         <div class="form_wrapper">
-          <form action="<?php echo esc_url(get_template_directory_uri()); ?>/mail/mail.php" method="post" enctype="multipart/form-data">
+          <form action="<?php echo esc_url(get_template_directory_uri()); ?>/contact-mail/mail.php" method="post" enctype="multipart/form-data">
             <table class="form_table">
               <tr>
-                <th>Email<span class="require">*</span></th>
-                <td><input size="20" type="text" name="お名前" /></td>
+                <th>
+                  <p class="form_label"><span>Email</span><span class="require">必須</span></p>
+                </th>
+                <td><input size="20" type="email" name="Email" placeholder="例：info@ibaraki-yorozu.go.jp" required /></td>
               </tr>
               <tr>
-                <th>相談企業名<span class="require">*</span></th>
-                <td><input size="30" type="text" name="電話番号" /></td>
+                <th>
+                  <p class="form_label"><span>相談企業名</span><span class="require">必須</span></p>
+                </th>
+                <td><input size="30" type="text" name="相談企業名" placeholder="例：株式会社 山田商社" required /></td>
               </tr>
               <tr>
-                <th>住所（市町村のみでも可）<span class="require">*</span></th>
-                <td><input size="30" type="text" name="Email" /></td>
+                <th>
+                  <p class="form_label"><span>住所</span><span class="require">必須</span></p><small>（市町村のみでも可）</small>
+                </th>
+                <td><input size="30" type="text" name="住所" placeholder="例：〇〇市〇〇町〇〇丁目〇〇番〇〇号" required /></td>
               </tr>
               <tr>
-                <th>担当者名<span class="require">*</span></th>
-                <td><input size="30" type="text" name="Email" /></td>
+                <th>
+                  <p class="form_label"><span>担当者名</span><span class="require">必須</span></p>
+                </th>
+                <td><input size="30" type="text" name="担当者名" placeholder="例：山田 太郎" required /></td>
               </tr>
               <tr>
-                <th>担当者役職<span class="require">*</span></th>
-                <td><input size="30" type="text" name="Email" /></td>
+                <th>
+                  <p class="form_label"><span>担当者役職</span><span class="require">必須</span></p>
+                </th>
+                <td><input size="30" type="text" name="担当者役職" placeholder="例：部長" required /></td>
               </tr>
               <tr>
-                <th>電話番号<span class="require">*</span></th>
-                <td><input size="30" type="text" name="Email" /></td>
+                <th>
+                  <p class="form_label"><span>電話番号</span><span class="require">必須</span></p>
+                </th>
+                <td><input size="30" type="text" name="電話番号" placeholder="例：000-0000-0000" required /></td>
               </tr>
               <tr>
-                <th>業種<span class="require">*</span></th>
-                <td><input size="30" type="text" name="Email" /></td>
+                <th>
+                  <p class="form_label"><span>業種</span><span class="require">必須</span></p>
+                </th>
+                <td><input size="30" type="text" name="業種" placeholder="例：建設業" required /></td>
               </tr>
               <tr>
-                <th>相談内容　（担当者が詳しくお聞きしますので、簡潔にご記入いただければ結構です。）<br /></th>
+                <th>
+                  <p class="form_label"><span>相談内容</span></p><small>（担当者が詳しくお聞きしますので、簡潔にご記入いただければ結構です。）</small>
+                </th>
                 <td><textarea name="お問い合わせ内容" cols="50" rows="5"></textarea></td>
               </tr>
               <tr>
-                <th>紹介機関名　※紹介機関がある場合は次の３項目をご記載ください。<br /></th>
-                <td><textarea name="お問い合わせ内容" cols="50" rows="5"></textarea></td>
+                <th class="nb">紹介機関名<br><small>※紹介機関がある場合は<br>次の３項目をご記載ください。</small><br /></th>
+                <td class="nb"><input name="お問い合わせ内容"></input></td>
               </tr>
               <tr>
-                <th>紹介機関担当者名<br /></th>
-                <td><textarea name="お問い合わせ内容" cols="50" rows="5"></textarea></td>
+                <th class="nb">紹介機関担当者名<br /></th>
+                <td class="nb"><input name="お問い合わせ内容"></input></td>
               </tr>
               <tr>
                 <th>紹介機関電話番号<br /></th>
-                <td><textarea name="お問い合わせ内容" cols="50" rows="5"></textarea></td>
+                <td><input name="お問い合わせ内容"></input></td>
               </tr>
             </table>
-            <input class="base_btn base_btn--orange" type="submit" value="　 確認 　" />
+            <p class="ta_center mb_03">
+              <input type="checkbox" name="プライバシポリシー" value="同意する" id="agree" required />
+              <label for="agree"><a class="td_underline" href="<?php echo home_url(); ?>/privacy">プライバシーポリシー</a>に同意する</label>
+            </p>
+            <div class="ta_center_table">
+              <button class="form_btn base_btn base_btn--orange" type="submit" type="button" value="確認">確認する</button>
+            </div>
           </form>
         </div>
       </div>

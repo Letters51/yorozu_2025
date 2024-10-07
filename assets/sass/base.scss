@@ -61,6 +61,10 @@ h4 {
 	display: flex;
 	align-items: center;
 
+	&--center {
+		justify-content: center;
+	}
+
 	@include md() {
 		margin-bottom: 0.5em;
 	}
@@ -421,7 +425,7 @@ button:hover {
 .news,
 .entry-content,
 .sigle-content {
-	a:not([href*="notes6"]):not([href*=".pdf"]):not([href*="tel:"]) {
+	a:not([href*="ibaraki-yorozu.go.jp"]):not([href*=".pdf"]):not([href*="tel:"]) {
 		&::after {
 			display: inline-block;
 			content: "";
@@ -444,7 +448,7 @@ button:hover {
 	}
 }
 
-.page_btn a:not([href*="notes6"]):not([href*=".pdf"]) {
+.page_btn a:not([href*="ibaraki-yorozu.go.jp"]):not([href*=".pdf"]) {
 	&::after {
 		background-image: url("../images/common/external_link_white.svg") !important;
 	}
