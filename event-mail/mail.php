@@ -217,7 +217,7 @@ $csv_data_esc = 1;
 //値はシングルクォーテーションで囲み、複数の場合はカンマで区切ってください （無効化する場合は「$regData = array();」として下さい）
 //記述例　 $regData = array('ご用件','お名前','電話番号','Email','性別','サイトを知ったきっかけ','お問い合わせ内容');
 // チェックボックス、ラジオボタンがある場合で、未入力の場合には空データを入れ、列ズレを防ぎたい場合に最適です（チェックボックスの場合 name="○○[]" の○○のみ指定下さい）
-$regData = array();
+$regData = array("件名","Email","企業名","住所","連絡のとれる電話番号","参加者(1)名前","参加者(1)ふりがな","参加者(2)役職","参加者(2)名前","参加者(2)ふりがな","参加者(3)役職","参加者(3)名前","参加者(3)ふりがな","きっかけ","備考","問い合わせ日付","問い合わせのページURL","自由欄1","自由欄2","自由欄3");
 
 //CSVダウンロードにセッション（ログイン）認証を利用する(する=1, しない=0) 
 //自身でBasic認証を使用したい場合やFTPソフトでダウンロードする場合は「しない」にしてください。
@@ -784,7 +784,6 @@ if (($jumpPage == 0 && $sendmail == 1) || ($jumpPage == 0 && ($confirmDsp == 0 &
 						}
 					}
 
-
 					//全角→半角変換
 					if ($hankaku == 1) {
 						$out = zenkaku2hankaku($key, $out, $hankaku_array);
@@ -1145,7 +1144,6 @@ if (($jumpPage == 0 && $sendmail == 1) || ($jumpPage == 0 && ($confirmDsp == 0 &
 				if (@ini_get('mail.add_x_header') == 1) echo '<p style="color:red">php.iniの「mail.add_x_header」がONになっています。添付がうまくいかない可能性が高いです。htaccessファイルかphp.iniファイルで設定を変更してOFFに設定下さい。サーバーにより設定方法は異なります。詳しくはサーバーマニュアル等、またはサーバー会社にお問い合わせ下さい。正常に添付できていればOKです。このメーッセージはmail.php内のオプションで非表示可能です</p>';
 			}
 		}
-
 		//トラバーサル対策
 		function traversalCheck($tmp_dir_name)
 		{
@@ -1166,7 +1164,7 @@ if (($jumpPage == 0 && $sendmail == 1) || ($jumpPage == 0 && ($confirmDsp == 0 &
 			$csv_data = $str;
 			$csv_data = str_replace('"', '""', $csv_data);
 			$csv_data = str_replace(',', '、', $csv_data);
-			return '"' . mb_convert_encoding($csv_data, "UTF-8", $encode) . '"';
+			return '"' . mb_convert_encoding($csv_data, "sjis-win", $encode) . '"';
 		}
 		//CSV生成と登録
 		function csvBackup($csv_file_path, $csv_data_esc, $regData)
@@ -1282,13 +1280,11 @@ if (($jumpPage == 0 && $sendmail == 1) || ($jumpPage == 0 && ($confirmDsp == 0 &
 						$out = $val;
 					}
 
-
 					if (version_compare(PHP_VERSION, '5.1.0', '<=')) { //PHP5.1.0以下の場合のみ実行（7.4でget_magic_quotes_gpcが非推奨になったため）
 						if (get_magic_quotes_gpc()) {
 							$out = stripslashes($out);
 						}
 					}
-
 
 					if ($out != "confirm_submit" && $key != "httpReferer" && $key != "upfilePath" && $key != "upfileType" && $key != "upfileOriginName") {
 
