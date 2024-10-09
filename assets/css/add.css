@@ -384,6 +384,11 @@
           align-items: start;
   margin-bottom: 0;
 }
+.form_label--mini {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
 
 .form_section_ttl {
   font-weight: 700;

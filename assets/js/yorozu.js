@@ -344,7 +344,14 @@ function setHeights() {
       // if previous sibling is not null, remove participant input
       if (last_participant_input != null) {
         last_participant_input.classList.remove("show");
-        last_participant_input.setAttribute("disabled", "disabled");
+        console.log(last_participant_input);
+        const last_participant_input_item = last_participant_input.querySelectorAll("input");
+        //loop through
+        Array.prototype.forEach.call(last_participant_input_item, function (e) {
+          console.log(e);
+          e.value = "";
+        });
+        //last_participant_input.setAttribute("disabled", "disabled");
       }
       checkButtonStatus();
     });

@@ -394,6 +394,9 @@
   justify-content: space-between;
   align-items: start;
   margin-bottom: 0;
+  &--mini {
+    justify-content: flex-start;
+  }
 }
 .form_section_ttl {
   font-weight: 700;

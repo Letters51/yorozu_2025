@@ -93,19 +93,19 @@ get_header();
 													</th>
 													<td class="pb_03">
 														<div class="participant_input show">
-															<p class="participant_number"><span class="participant_number__ttl">参加者（１）</span><span class="require">必須</span></p>
-															<p>お名前</p>
+															<p class="participant_number"><span class="participant_number__ttl">参加者（１）</span></p>
+															<p class="form_label form_label--mini"><span>お名前</span><span class="require">必須</span></p>
 															<input size="30" type="text" name="参加者(1)名前" placeholder="例：山田 太郎" required />
-															<p>ふりがな</p>
+															<p class="form_label form_label--mini"><span>ふりがな</span><span class="require">必須</span></p>
 															<input size="30" type="text" name="参加者(1)ふりがな" placeholder="例：やまだ たろう" required />
 															<p>役職</p>
-															<input size="30" type="text" name="参加者(1)役職" placeholder="例：部長" required />
+															<input size="30" type="text" name="参加者(1)役職" placeholder="例：部長"/>
 														</div>
 
 														<?php if ($participant02_name != ''): ?>
 															<fieldset class="participant_input hide show">
 															<?php else: ?>
-																<fieldset class="participant_input hide" disabled>
+																<fieldset class="participant_input hide">
 																<?php endif; ?>
 																<p class="participant_number"><span class="participant_number__ttl">参加者（2）</span></p>
 																<p>お名前</p>
@@ -118,7 +118,7 @@ get_header();
 																<?php if ($participant03_name != ''): ?>
 																	<fieldset class="participant_input hide show">
 																	<?php else: ?>
-																		<fieldset class="participant_input hide" disabled>
+																		<fieldset class="participant_input hide">
 																		<?php endif; ?>
 																		<p class="participant_number"><span class="participant_number__ttl">参加者（3）</span></p>
 																		<p>お名前</p>
