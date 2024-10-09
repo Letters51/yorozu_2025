@@ -514,7 +514,7 @@ final class AddThumnailinThelist
         if (isset($thum) && $thum) {
             echo $thum;
         } else {
-            echo __('None');
+            //echo __('None');
         }
     }
 }

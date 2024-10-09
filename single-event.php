@@ -22,7 +22,6 @@ get_header();
 <main id="primary" class="site-main container container--np">
 	<section>
 		<div class="page-wrapper">
-
 			<div class="breadcrumbs container" typeof="BreadcrumbList" vocab="https://schema.org/">
 				<div class="container__inner">
 					<?php if (function_exists('bcn_display')) {
@@ -47,19 +46,23 @@ get_header();
 								if ($is_accepting == 3) {
 									$is_after_deadline = true;
 								}
+								$thanks_message = get_field('thanks-message');
+								$event_name = str_replace("<br>", "\n", get_the_title());
 								?>
 								<?php if ($is_after_deadline): ?>
 									<p>申込みは締め切られました。</p>
 								<?php else: ?>
 									<div class="form_wrapper form_wrapper--back">
 										<form action="<?php echo esc_url(get_template_directory_uri()); ?>/event-mail/mail.php" method="post" enctype="multipart/form-data">
+										<input type="hidden" name="投稿ID" value="<?php echo get_the_ID(); ?>">
+										<textarea name="サンクス文面" id="thanks_message" hidden value=""><?php echo $thanks_message;?></textarea>
+											<textarea name="イベント名" id="event_name" hidden value=""><?php echo $event_name;?></textarea>
 											<table class="form_table form_table--nbt">
 												<tr>
 													<th>
 														<p class="form_label"><span>件名</span></p>
 													</th>
-													<td><textarea class="textarea_event_title" style="resize: none;" size="20" type="text" name="件名" placeholder="<?php echo str_replace("<br>", "\n", get_the_title()); ?>への申込" readonly></textarea></td>
-												</tr>
+													<td><textarea class="textarea_event_title" style="resize: none;" size="20" type="text" name="件名" placeholder="<?php echo $event_name;?>への申込" readonly></textarea></td>
 												<tr>
 													<th>
 														<p class="form_label"><span>Email</span><span class="require">必須</span></p>

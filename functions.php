@@ -1316,11 +1316,11 @@ add_action('customize_register', 'mytheme_customize_register_contact_form');
 //
 function getPossibleDates($city)
 {
-$ret = "";
+	$ret = "";
 
-switch ($city) {
-case "tsukuba":
-$ret .= '
+	switch ($city) {
+		case "tsukuba":
+			$ret .= '
 <option value="令和６年４月１８日（木）  １３：００～１４：３０">令和６年４月１８日（木）  １３：００～１４：３０</option>
 <option value="令和６年４月１８日（木）  １４：３０～１６：００">令和６年４月１８日（木）  １４：３０～１６：００</option>
 <option value="令和６年５月１６日（木）  １３：００～１４：３０">令和６年５月１６日（木）  １３：００～１４：３０</option>
@@ -1345,9 +1345,9 @@ $ret .= '
 <option value="令和７年２月２０日（木）  １４：３０～１６：００">令和７年２月２０日（木）  １４：３０～１６：００</option>
 <option value="令和７年３月１３日（木）  １３：００～１４：３０">令和７年３月１３日（木）  １３：００～１４：３０</option>
 <option value="令和７年３月１３日（木）  １４：３０～１６：００">令和７年３月１３日（木）  １４：３０～１６：００</option>';
-break;
-case "hitachinaka":
-$ret .= '
+			break;
+		case "hitachinaka":
+			$ret .= '
 <option value="令和６年４月１０日（水） １４：００～１５：３０">令和６年４月１０日（水） １４：００～１５：３０</option>
 <option value="令和６年４月１０日（水） １５：３０～１７：００">令和６年４月１０日（水） １５：３０～１７：００</option>
 <option value="令和６年５月１５日（水） １４：００～１５：３０">令和６年５月１５日（水） １４：００～１５：３０</option>
@@ -1372,9 +1372,9 @@ $ret .= '
 <option value="令和７年２月１９日（水） １５：３０～１７：００">令和７年２月１９日（水） １５：３０～１７：００</option>
 <option value="令和７年３月１９日（水） １４：００～１５：３０">令和７年３月１９日（水） １４：００～１５：３０</option>
 <option value="令和７年３月１９日（水） １５：３０～１７：００">令和７年３月１９日（水） １５：３０～１７：００</option>';
-break;
-case "hitachi":
-$ret .= '
+			break;
+		case "hitachi":
+			$ret .= '
 <option value="令和６年４月１６日（火） １３：００～１４：３０">令和６年４月１６日（火） １３：００～１４：３０</option>
 <option value="令和６年４月１６日（火） １４：３０～１６：００">令和６年４月１６日（火） １４：３０～１６：００</option>
 <option value="令和６年５月１４日（火） １３：００～１４：３０">令和６年５月１４日（火） １３：００～１４：３０</option>
@@ -1400,8 +1400,8 @@ $ret .= '
 <option value="令和７年３月１８日（火） １３：００～１４：３０">令和７年３月１８日（火） １３：００～１４：３０</option>
 <option value="令和７年３月１８日（火） １４：３０～１６：００">令和７年３月１８日（火） １４：３０～１６：００</option>
 ';
-}
-return $ret;
+	}
+	return $ret;
 }
 //
 //
@@ -1415,3 +1415,30 @@ function getConsultingType()
 	';
 	return $ret;
 }
+/**
+ * Adds "Import" button on module list page
+ */
+// テストの列を追加
+function online_manage_columns($columns)
+{
+	$columns['csv_download'] = 'CSVダウンロード';
+	return $columns;
+}
+
+// 投稿IDを表示
+function online_manage_custom_column_2args($column_name, $post_id)
+{
+	// if post_type is event
+	if ('event' == get_post_type($post_id)) {
+		if ('csv_download' == $column_name)
+			//if file exists, show download link
+			if (file_exists(get_template_directory() . '/event-mail/data/data' . $post_id . '.csv')) {
+				echo '<a href="' . home_url() . '/wp-content/themes/scratch-master/event-mail/mail.php?mode=download&event_id=' . $post_id . '" class="button button-primary" target="_blank">CSVダウンロード</a>';
+			} else {
+				echo 'CSVがありません';
+			}
+	}
+}
+
+add_filter('manage_posts_columns', 'online_manage_columns');
+add_action('manage_posts_custom_column', 'online_manage_custom_column_2args', 10, 2);

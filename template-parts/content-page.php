@@ -12,7 +12,15 @@
 
 	<header class="entry-header">
 		<div class="page-header">
-			<?php the_title('<h1 class="entry-title">', '</h1>'); ?>
+			<?php
+			//get custom field of prim-ttl
+			$prim_ttl = get_field('prim-ttl');
+			if ($prim_ttl) {
+				echo '<h1 class="entry-title">' . esc_html($prim_ttl) . '</h1>';
+			} else {
+				echo '<h1 class="entry-title">' . esc_html(get_the_title()) . '</h1>';
+			}
+			?>
 		</div>
 	</header><!-- .entry-header -->
 

@@ -585,3 +585,17 @@ input[type="reset"] {
   background-color: #ffffff;
   border: 1px solid #999;
 }
+
+.thanks_text {
+  &__event_name {
+    font-size: 1.2em;
+    font-weight: 700;
+  }
+}
+
+.thanks_text__head {
+  margin-bottom: 2rem;
+  p{
+    margin-bottom: 0;
+  }
+}
