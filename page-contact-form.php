@@ -88,7 +88,7 @@ get_header();
               </tr>
             </table>
             <p class="ta_center mb_03">
-              <input type="checkbox" name="プライバシポリシー" value="同意する" id="agree" required />
+              <input type="checkbox" name="プライバシーポリシー" value="同意する" id="agree" required />
               <label for="agree"><a class="td_underline" href="<?php echo home_url(); ?>/privacy">プライバシーポリシー</a>に同意する</label>
             </p>
             <div class="ta_center_table">

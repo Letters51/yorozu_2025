@@ -1205,25 +1205,6 @@ function mytheme_customize_register_event_mail($wp_customize)
 		'settings'   => 'event_mail_auto_reply',
 		'type' => 'textarea',
 	)));
-
-	// Add a new setting
-	$wp_customize->add_setting('donwnload_csv_event', array(
-		'default'    => '',
-		'transport'  => 'refresh',
-	));
-
-	// Add a control to the setting
-	$wp_customize->add_control(new WP_Customize_Control($wp_customize, 'donwnload_csv_event', array(
-		'label'      => __('イベントメールCSVダウンロード', 'mytheme'),
-		'section'    => 'event_section',
-		'settings'   => array(),
-		'type' => 'button',
-		'input_attrs' => array(
-			'value' => "イベントメールCSVダウンロード",
-			'class' => 'button button-primary',
-			'onclick' => 'window.open("' . home_url() . '/wp-content/themes/scratch-master/event-mail/mail.php?mode=download")',
-		),
-	)));
 }
 add_action('customize_register', 'mytheme_customize_register_event_mail');
 
@@ -1251,21 +1232,57 @@ function mytheme_customize_register_applying_form($wp_customize)
 		'type' => 'textarea',
 	)));
 	// Add a new setting
-	$wp_customize->add_setting('donwnload_csv_applying', array(
+	$wp_customize->add_setting('donwnload_csv_tsukuba', array(
 		'default'    => '',
 		'transport'  => 'refresh',
 	));
 
 	// Add a control to the setting
-	$wp_customize->add_control(new WP_Customize_Control($wp_customize, 'donwnload_csv_applying', array(
+	$wp_customize->add_control(new WP_Customize_Control($wp_customize, 'donwnload_csv_tsukuba', array(
 		'label'      => __('相談会フォームCSVダウンロード', 'mytheme'),
 		'section'    => 'applying_form_section',
 		'settings'   => array(),
 		'type' => 'button',
 		'input_attrs' => array(
-			'value' => "相談会フォームCSVをダウンロード", // 
+			'value' => "つくばサテライトCSVをダウンロード", // 
 			'class' => 'button button-primary', // 
-			'onclick' => 'window.open("' . home_url() . '/wp-content/themes/scratch-master/consulting-mail/mail.php?mode=download")',
+			'onclick' => 'window.open("' . home_url() . '/wp-content/themes/scratch-master/consulting-mail/mail.php?mode=download&city=tsukuba")',
+		),
+	)));
+	// Add a new setting
+	$wp_customize->add_setting('donwnload_csv_hitachinaka', array(
+		'default'    => '',
+		'transport'  => 'refresh',
+	));
+
+	// Add a control to the setting
+	$wp_customize->add_control(new WP_Customize_Control($wp_customize, 'donwnload_csv_hitachinaka', array(
+		'label'      => __('', 'mytheme'),
+		'section'    => 'applying_form_section',
+		'settings'   => array(),
+		'type' => 'button',
+		'input_attrs' => array(
+			'value' => "ひたちなかサテライトCSVをダウンロード", // 
+			'class' => 'button button-primary', // 
+			'onclick' => 'window.open("' . home_url() . '/wp-content/themes/scratch-master/consulting-mail/mail.php?mode=download&city=hitachinaka")',
+		),
+	)));
+	// Add a new setting
+	$wp_customize->add_setting('donwnload_csv_hitachi', array(
+		'default'    => '',
+		'transport'  => 'refresh',
+	));
+
+	// Add a control to the setting
+	$wp_customize->add_control(new WP_Customize_Control($wp_customize, 'donwnload_csv_hitachi', array(
+		'label'      => __('', 'mytheme'),
+		'section'    => 'applying_form_section',
+		'settings'   => array(),
+		'type' => 'button',
+		'input_attrs' => array(
+			'value' => "日立サテライトCSVをダウンロード", // 
+			'class' => 'button button-primary', // 
+			'onclick' => 'window.open("' . home_url() . '/wp-content/themes/scratch-master/consulting-mail/mail.php?mode=download&city=hitachi")',
 		),
 	)));
 }

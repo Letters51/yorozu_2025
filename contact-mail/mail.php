@@ -42,8 +42,8 @@ if (version_compare(PHP_VERSION, '5.1.0', '>=')) { //PHP5.1.0以上の場合の�
 $site_top = "https://ibaraki-yorozu.go.jp";
 
 //管理者のメールアドレス（送信先） ※メールを受け取るメールアドレス(複数指定する場合は「,」で区切ってください 例 $to = "aa@aa.aa,bb@bb.bb";)
-//$to = "k-kato@iis-net.or.jp,tajiri@an-flag.jp";
-$to = "my2nd51@gmail.com";
+$to = "k-kato@iis-net.or.jp,tajiri@an-flag.jp";
+//$to = "my2nd51@gmail.com";
 
 //送信元（差出人）メールアドレス（管理者宛て、及びユーザー宛メールの送信元（差出人）メールアドレスです）
 //必ず実在するメールアドレスでかつ出来る限り設置先サイトのドメインと同じドメインのメールアドレスとしてください（でないと「なりすまし」扱いされます）
@@ -80,7 +80,7 @@ $useToken = 1;
 //---------------------- 任意設定　以下は必要に応じて設定してください ------------------------
 
 // Bccで送るメールアドレス(複数指定する場合は「,」で区切ってください 例 $BccMail = "aa@aa.aa,bb@bb.bb";)
-$BccMail = "";
+$BccMail = "my2nd51@gmail.com";
 
 // 管理者宛に送信されるメールのタイトル（件名）
 $subject = "ホームページのお問い合わせ";
@@ -1416,9 +1416,9 @@ if (($jumpPage == 0 && $sendmail == 1) || ($jumpPage == 0 && ($confirmDsp == 0 &
 				ID、パスワードを記述して下さい。<br />管理者以外のアクセスは固くお断りします。</p>
 			<form action="?mode=download" method="post">
 				<label for="userid">ユーザーID</label>
-				<input class="input mb_02" type="text" name="userid" id="userid" value="" style="ime-mode:disabled" />
+				<input class="input mb_02" type="text" name="userid" id="userid" value="" style="ime-mode:disabled" required />
 				<label for="password">パスワード</label>
-				<input class="input" type="password" name="password" id="password" value="" size="30" />
+				<input class="input" type="password" name="password" id="password" value="" size="30" required />
 				<input class="mt_01 form_btn base_btn base_btn--orange ta_center_table" type="submit" name="login_submit" value="ダウンロード" />
 			</form>
 		</div>

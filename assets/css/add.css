@@ -496,6 +496,10 @@ textarea.textarea_event_title {
   font-size: 24px;
 }
 
+.fs_20 {
+  font-size: 20px;
+}
+
 .td_underline {
   text-decoration: underline;
 }
@@ -586,4 +590,8 @@ input[type=reset] {
 }
 .thanks_text__head p {
   margin-bottom: 0;
+}
+
+.hide_row {
+  display: none;
 }

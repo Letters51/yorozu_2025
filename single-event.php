@@ -37,6 +37,7 @@ get_header();
 							the_post();
 							get_template_part('template-parts/content', get_post_type()); ?>
 							<h3>申し込み</h3>
+
 							<div class="form_area">
 								<p>茨城県よろず支援拠点では、中小企業・小規模事業者の皆様のために無料で経営相談を行っております。お気軽にお問い合わせください。専門のコーディネーターが親身になって対応いたします。</p>
 								<!-- diable after the deadline -->
@@ -50,19 +51,21 @@ get_header();
 								$event_name = str_replace("<br>", "\n", get_the_title());
 								?>
 								<?php if ($is_after_deadline): ?>
-									<p>申込みは締め切られました。</p>
+									<hr>
+									<p class="pb_03 mt_03">申込みは締め切られました。</p>
+									<hr>
 								<?php else: ?>
 									<div class="form_wrapper form_wrapper--back">
 										<form action="<?php echo esc_url(get_template_directory_uri()); ?>/event-mail/mail.php" method="post" enctype="multipart/form-data">
-										<input type="hidden" name="投稿ID" value="<?php echo get_the_ID(); ?>">
-										<textarea name="サンクス文面" id="thanks_message" hidden value=""><?php echo $thanks_message;?></textarea>
-											<textarea name="イベント名" id="event_name" hidden value=""><?php echo $event_name;?></textarea>
+											<input type="hidden" name="投稿ID" value="<?php echo get_the_ID(); ?>">
+											<textarea name="サンクス文面" id="thanks_message" hidden value=""><?php echo $thanks_message; ?></textarea>
+											<textarea name="イベント名" id="event_name" hidden value=""><?php echo $event_name; ?></textarea>
 											<table class="form_table form_table--nbt">
 												<tr>
 													<th>
 														<p class="form_label"><span>件名</span></p>
 													</th>
-													<td><textarea class="textarea_event_title" style="resize: none;" size="20" type="text" name="件名" placeholder="<?php echo $event_name;?>への申込" readonly></textarea></td>
+													<td><textarea class="textarea_event_title" style="resize: none;" size="20" type="text" name="件名" placeholder="<?php echo $event_name; ?>への申込" readonly></textarea></td>
 												<tr>
 													<th>
 														<p class="form_label"><span>Email</span><span class="require">必須</span></p>
@@ -99,7 +102,7 @@ get_header();
 															<p class="form_label form_label--mini"><span>ふりがな</span><span class="require">必須</span></p>
 															<input size="30" type="text" name="参加者(1)ふりがな" placeholder="例：やまだ たろう" required />
 															<p>役職</p>
-															<input size="30" type="text" name="参加者(1)役職" placeholder="例：部長"/>
+															<input size="30" type="text" name="参加者(1)役職" placeholder="例：部長" />
 														</div>
 
 														<?php if ($participant02_name != ''): ?>
@@ -141,32 +144,60 @@ get_header();
 													<td><textarea size="30" type="text" name="きっかけ" placeholder="例：知人の紹介、ウェブサイト、SNS、広告、その他" required></textarea></td>
 												</tr>
 												<?php
-												$form_free_area = SCF::get('form_free_area');
-												if ($form_free_area):
-													foreach ($form_free_area as $form_free_area_item):
+												//assign form_free_area
+												$free_01_ttl = get_field('free_01_ttl') ? get_field('free_01_ttl') : '自由欄(1)';
+												$free_01_holder = get_field('free_01_holder') ? get_field('free_01_holder') : '';
+												$free_01_required = get_field('free_01_required') ? get_field('free_01_required') : '';
+												$free_02_ttl = get_field('free_02_ttl') ? get_field('free_02_ttl') : '自由欄(2)';
+												$free_02_holder = get_field('free_02_holder') ? get_field('free_02_holder') : '';
+												$free_02_required = get_field('free_02_required') ? get_field('free_02_required') : '';
+												$free_03_ttl = get_field('free_03_ttl') ? get_field('free_03_ttl') : '自由欄(3)';
+												$free_03_holder = get_field('free_03_holder') ? get_field('free_03_holder') : '';
+												$free_03_required = get_field('free_03_required') ? get_field('free_03_required') : '';
 												?>
-														<?php if ($form_free_area_item['form_free_area_item'] != ''): ?>
-															<tr>
-																<th>
-																	<p class="form_label"><span><?php echo nl2br(esc_html($form_free_area_item['form_free_area_item'])); ?></span><?php if ($form_free_area_item['is_required']) {
-																																														echo '<span class="require">必須</span>';
-																																													} ?></p>
-																</th>
-																<td><input size="30" type="text" name="<?php echo esc_html(str_replace("\r\n", "", $form_free_area_item['form_free_area_item'])); ?>" <?php if ($form_free_area_item['is_required']) {
-																																																			echo " required";
-																																																		} ?> placeholder="<?php echo esc_html($form_free_area_item['placeholder']); ?>" /></td>
-															</tr>
-												<?php endif;
-													endforeach;
-												endif;
-												?>
+												<tr <?php if ($free_01_ttl == '自由欄(1)') {
+														echo "class='hide_row'";
+													} ?>>
+													<th>
+														<p class="form_label"><span><?php echo $free_01_ttl; ?></span><?php if ($free_01_required) {
+																															echo '<span class="require">必須</span>';
+																														} ?></p>
+													</th>
+													<td><input size="30" type="text" name="<?php echo $free_01_ttl; ?>" <?php if ($free_01_required) {
+																															echo " required";
+																														} ?> placeholder="<?php echo $free_01_holder; ?>" /></td>
+												</tr>
+												<tr <?php if ($free_02_ttl == '自由欄(2)') {
+														echo "class='hide_row'";
+													} ?>>
+													<th>
+														<p class="form_label"><span><?php echo $free_02_ttl; ?></span><?php if ($free_02_required) {
+																															echo '<span class="require">必須</span>';
+																														} ?></p>
+													</th>
+													<td><input size="30" type="text" name="<?php echo $free_02_ttl; ?>" <?php if ($free_02_required) {
+																															echo " required";
+																														} ?> placeholder="<?php echo $free_02_holder; ?>" /></td>
+												</tr>
+												<tr <?php if ($free_03_ttl == '自由欄(3)') {
+														echo "class='hide_row'";
+													} ?>>
+													<th>
+														<p class="form_label"><span><?php echo $free_03_ttl; ?></span><?php if ($free_03_required) {
+																															echo '<span class="require">必須</span>';
+																														} ?></p>
+													</th>
+													<td><input size="30" type="text" name="<?php echo $free_03_ttl; ?>" <?php if ($free_03_required) {
+																															echo " required";
+																														} ?> placeholder="<?php echo $free_03_holder; ?>" /></td>
+												</tr>
 												<tr>
 													<th>備考<br /></th>
 													<td><textarea name="備考" cols="50" rows="5"></textarea></td>
 												</tr>
 											</table>
 											<p class="ta_center mb_03">
-												<input type="checkbox" name="プライバシポリシー" value="同意する" id="agree" required />
+												<input type="checkbox" name="プライバシーポリシー" value="同意する" id="agree" required />
 												<label for="agree"><a class="td_underline" href="<?php echo home_url(); ?>/privacy">プライバシーポリシー</a>に同意する</label>
 											</p>
 											<div class="ta_center_table">

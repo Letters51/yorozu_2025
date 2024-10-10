@@ -366,6 +366,7 @@ function setHeights() {
         add_participant_btn[0].disabled = false;
         add_participant_btn[0].classList.remove("disabled");
       }
+      console.log(participant_inputs.length);
       if (participant_inputs.length < 2) {
         remove_participant_btn[0].disabled = true;
         remove_participant_btn[0].classList.add("disabled");
@@ -374,6 +375,7 @@ function setHeights() {
         remove_participant_btn[0].classList.remove("disabled");
       }
     }
+    checkButtonStatus();
   }
   addParticipantInput();
 })();

@@ -25,7 +25,8 @@ get_header();
         <div class="form_wrapper">
           <form action="<?php echo esc_url(get_template_directory_uri()); ?>/consulting-mail/mail.php" method="post" enctype="multipart/form-data">
             <table class="form_table">
-              <input type="hidden" name="件名" value="R6つくばサテライト個別相談会申込">
+              <input type="hidden" name="件名" value="R6日立サテライト個別相談会申込書">
+              <input type="hidden" name="サテライトID" value="hitachi">
               <tr>
                 <th>
                   <p class="form_label"><span>Email</span><span class="require">必須</span></p>
@@ -148,7 +149,7 @@ get_header();
               </tr>
             </table>
             <p class="ta_center mb_03">
-              <input type="checkbox" name="プライバシポリシー" value="同意する" id="agree" required />
+              <input type="checkbox" name="プライバシーポリシー" value="同意する" id="agree" required />
               <label for="agree"><a class="td_underline" href="<?php echo home_url(); ?>/privacy">プライバシーポリシー</a>に同意する</label>
             </p>
             <div class="ta_center_table">

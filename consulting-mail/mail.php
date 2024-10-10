@@ -42,8 +42,8 @@ if (version_compare(PHP_VERSION, '5.1.0', '>=')) { //PHP5.1.0以上の場合の�
 $site_top = "https://ibaraki-yorozu.go.jp";
 
 //管理者のメールアドレス（送信先） ※メールを受け取るメールアドレス(複数指定する場合は「,」で区切ってください 例 $to = "aa@aa.aa,bb@bb.bb";)
-//$to = "k-kato@iis-net.or.jp,tajiri@an-flag.jp";
-$to = "my2nd51@gmail.com";
+$to = "k-kato@iis-net.or.jp,tajiri@an-flag.jp";
+//$to = "my2nd51@gmail.com";
 
 //送信元（差出人）メールアドレス（管理者宛て、及びユーザー宛メールの送信元（差出人）メールアドレスです）
 //必ず実在するメールアドレスでかつ出来る限り設置先サイトのドメインと同じドメインのメールアドレスとしてください（でないと「なりすまし」扱いされます）
@@ -197,8 +197,14 @@ $csv_backup = 1;
 //CSV保存先ディレクトリ（書き込み可能なパーミッション（777等※サーバによる）に変更ください）
 $csv_dir = "data/";
 
-//CSV保存ファイル名
-$csv_filename = "data.csv";
+
+//get url param event_id
+$city = $_GET['city'];
+if ($city) {
+	$csv_filename = "data_" . $city . ".csv";
+} else {
+	$csv_filename = "data_" . $_POST['サテライトID'] . ".csv";
+}
 
 //CSVファイルパス（変更禁止）
 $csv_file_path = $csv_dir . $csv_filename;
@@ -740,42 +746,44 @@ if (($jumpPage == 0 && $sendmail == 1) || ($jumpPage == 0 && ($confirmDsp == 0 &
 			global $hankaku, $hankaku_array, $ConfirmEmail;
 			$resArray = '';
 			foreach ($arr as $key => $val) {
-				$out = '';
-				if (is_array($val)) {
-					foreach ($val as $key02 => $item) {
-						//連結項目の処理
-						if (is_array($item)) {
-							$out .= connect2val($item);
-						} else {
-							$out .= $item . ', ';
+				if ($key !== "サテライトID") {
+					$out = '';
+					if (is_array($val)) {
+						foreach ($val as $key02 => $item) {
+							//連結項目の処理
+							if (is_array($item)) {
+								$out .= connect2val($item);
+							} else {
+								$out .= $item . ', ';
+							}
+						}
+						$out = rtrim($out, ', ');
+					} else {
+						$out = $val;
+					} //チェックボックス（配列）追記ここまで
+
+					if (version_compare(PHP_VERSION, '5.1.0', '<=')) { //PHP5.1.0以下の場合のみ実行（7.4でget_magic_quotes_gpcが非推奨になったため）
+						if (get_magic_quotes_gpc()) {
+							$out = stripslashes($out);
 						}
 					}
-					$out = rtrim($out, ', ');
-				} else {
-					$out = $val;
-				} //チェックボックス（配列）追記ここまで
-
-				if (version_compare(PHP_VERSION, '5.1.0', '<=')) { //PHP5.1.0以下の場合のみ実行（7.4でget_magic_quotes_gpcが非推奨になったため）
-					if (get_magic_quotes_gpc()) {
-						$out = stripslashes($out);
-					}
-				}
 
 
-				//全角→半角変換
-				if ($hankaku == 1) {
-					$out = zenkaku2hankaku($key, $out, $hankaku_array);
-				}
-
-				if ($out != "confirm_submit" && $key != "httpReferer" && $key != "upfilePath" && $key != "upfileType" && $key != $ConfirmEmail) {
-
-					if ($key == "upfileOriginName" && $out != '') {
-						$key = '添付ファイル';
-					} elseif ($key == "upfileOriginName" && $out == '') {
-						continue;
+					//全角→半角変換
+					if ($hankaku == 1) {
+						$out = zenkaku2hankaku($key, $out, $hankaku_array);
 					}
 
-					$resArray .= "【 " . $key . " 】 " . $out . "\n";
+					if ($out != "confirm_submit" && $key != "httpReferer" && $key != "upfilePath" && $key != "upfileType" && $key != $ConfirmEmail) {
+
+						if ($key == "upfileOriginName" && $out != '') {
+							$key = '添付ファイル';
+						} elseif ($key == "upfileOriginName" && $out == '') {
+							continue;
+						}
+
+						$resArray .= "【 " . $key . " 】 " . $out . "\n";
+					}
 				}
 			}
 			return $resArray;
@@ -786,9 +794,11 @@ if (($jumpPage == 0 && $sendmail == 1) || ($jumpPage == 0 && ($confirmDsp == 0 &
 			global $upFilePath, $upfile_key, $encode, $hankaku, $hankaku_array, $useToken, $confirmDsp, $replaceStr;
 			$html = '';
 			foreach ($arr as $key => $val) {
+
 				$out = '';
 				if (is_array($val)) {
 					foreach ($val as $key02 => $item) {
+
 						//連結項目の処理
 						if (is_array($item)) {
 							$out .= connect2val($item);
@@ -815,10 +825,13 @@ if (($jumpPage == 0 && $sendmail == 1) || ($jumpPage == 0 && ($confirmDsp == 0 &
 				$out = nl2br(h($out)); //※追記 改行コードを<br>タグに変換
 				$key = h($key);
 				$out = str_replace($replaceStr['before'], $replaceStr['after'], $out); //機種依存文字の置換処理
-
-				$html .= "<tr><th>" . $key . "</th><td>" . mb_convert_kana($out, "K", $encode);
-				$html .= '<input type="hidden" name="' . $key . '" value="' . str_replace(array("<br />", "<br>"), "", mb_convert_kana($out, "K", $encode)) . '" />';
-				$html .= "</td></tr>\n";
+				if ($key == "サテライトID") {
+					$html .= '<input type="hidden" name="' . $key . '" value="' . str_replace(array("<br />", "<br>"), "", mb_convert_kana($out, "K", $encode)) . '" />';
+				} else {
+					$html .= "<tr><th>" . $key . "</th><td>" . mb_convert_kana($out, "K", $encode);
+					$html .= '<input type="hidden" name="' . $key . '" value="' . str_replace(array("<br />", "<br>"), "", mb_convert_kana($out, "K", $encode)) . '" />';
+					$html .= "</td></tr>\n";
+				}
 			}
 
 			//添付ファイル表示処理
@@ -1190,7 +1203,6 @@ if (($jumpPage == 0 && $sendmail == 1) || ($jumpPage == 0 && ($confirmDsp == 0 &
 			// 入力フォームで入力された内容の保存
 			$csv  = ""; //初期値
 
-
 			//登録データが指定されている場合の処理
 			if ($countRegData > 0) {
 
@@ -1287,7 +1299,6 @@ if (($jumpPage == 0 && $sendmail == 1) || ($jumpPage == 0 && ($confirmDsp == 0 &
 
 			$csv = rtrim($csv, ",");
 			$csv .= "\n"; //I改行コード挿入
-
 			$fp = fopen($csv_file_path, 'a');
 
 			flock($fp, LOCK_EX);
@@ -1410,15 +1421,33 @@ if (($jumpPage == 0 && $sendmail == 1) || ($jumpPage == 0 && ($confirmDsp == 0 &
 
 	<body>
 		<?php if (isset($login_error)) echo $login_error; ?>
-		<h1 class="mt_05 fs_24 ta_center">相談フォームCSVダウンロード認証画面</h1>
+		<h1 class="mt_05 mb_02 fs_24 ta_center">相談会フォームCSVダウンロード認証画面</h1>
+		<p class="fs_20 mb_03 ta_center">
+			<?php
+				switch ($_GET['city']) {
+					case 'hitachinaka':
+						echo 'ひたちなかサテライトオフィス';
+						break;
+					case 'hitachi':
+						echo '日立サテライトオフィス';
+						break;
+					case 'tsukuba':
+						echo 'つくばサテライトオフィス';
+						break;
+					default:
+						echo '';
+						break;
+				}
+			?>
+		</p>
 		<div id="login_form">
 			<p class="mb_03 ta_center">CSVをダウンロードするには認証する必要があります。<br />
 				ID、パスワードを記述して下さい。<br />管理者以外のアクセスは固くお断りします。</p>
-			<form action="?mode=download" method="post">
+			<form action="?mode=download&city=<?php echo $_GET['city']; ?>" method="post">
 				<label for="userid">ユーザーID</label>
-				<input class="input mb_02" type="text" name="userid" id="userid" value="" style="ime-mode:disabled" />
+				<input class="input mb_02" type="text" name="userid" id="userid" value="" style="ime-mode:disabled" required />
 				<label for="password">パスワード</label>
-				<input class="input" type="password" name="password" id="password" value="" size="30" />
+				<input class="input" type="password" name="password" id="password" value="" size="30" required />
 				<input class="mt_01 form_btn base_btn base_btn--orange ta_center_table" type="submit" name="login_submit" value="ダウンロード" />
 			</form>
 		</div>
@@ -1428,8 +1457,10 @@ if (($jumpPage == 0 && $sendmail == 1) || ($jumpPage == 0 && ($confirmDsp == 0 &
 <?php
 				exit();
 			} else {
+				//reset cookie
 				header('Content-Type: application/octet-stream');
-				header('Content-Disposition: attachment; filename=' . date('Y-m-d-H-i') . '.csv');
+				//header('Content-Disposition: attachment; filename=' . date('Y-m-d-H-i') . '.csv');
+				header('Content-Disposition: attachment; filename=' . 'data_' . $_GET['city'] . '.csv');
 				header('Content-Transfer-Encoding: binary');
 				header('Content-Length: ' . filesize($csv_file_path));
 				readfile($csv_file_path);

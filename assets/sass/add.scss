@@ -502,6 +502,9 @@ textarea.textarea_event_title {
 .fs_24 {
   font-size: 24px;
 }
+.fs_20 {
+  font-size: 20px;
+}
 .td_underline {
   text-decoration: underline;
 }
@@ -601,4 +604,8 @@ input[type="reset"] {
   p{
     margin-bottom: 0;
   }
+}
+
+.hide_row {
+  display: none;
 }
