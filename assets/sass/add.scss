@@ -349,18 +349,26 @@
     padding: 30px 30px 50px 30px;
     max-width: unset;
   }
+  @include md() {
+    padding: 20px 10px 50px 10px;
+  }
 }
 
 .form_table {
+  white-space: unset !important;
   width: 100%;
   table-layout: fixed;
   margin-bottom: 2rem;
   border-top: 1px solid #ededed;
+  th {
+    //white-space: nowrap !important;
+  }
   &--nbt {
     border-top: none;
   }
   input,
-  textarea,select {
+  textarea,
+  select {
     width: 100%;
     border: 1px solid #666 !important;
     background: #fff;
@@ -388,14 +396,34 @@
   th {
     padding-right: 0;
   }
+  @include md() {
+    th,
+    td {
+      display: block;
+      padding: 10px 0;
+    }
+    th {
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+    td {
+      padding-top: 0;
+    }
+  }
 }
 .form_label {
   display: flex;
   justify-content: space-between;
   align-items: start;
   margin-bottom: 0;
+  padding-top: 0.55em;
   &--mini {
     justify-content: flex-start;
+  }
+  @include md() {
+    &--mini {
+      margin-bottom: 0.5rem !important;
+    }
   }
 }
 .form_section_ttl {
@@ -550,6 +578,10 @@ textarea.textarea_event_title {
 }
 .form_btn {
   width: 200px;
+  @include md() {
+    width: 100%;
+    padding: 20px 10px;
+  }
 }
 //
 //
@@ -601,11 +633,23 @@ input[type="reset"] {
 
 .thanks_text__head {
   margin-bottom: 2rem;
-  p{
+  p {
     margin-bottom: 0;
   }
 }
 
 .hide_row {
   display: none;
+}
+
+.confirm_table {
+  margin-bottom: 3rem;
+  .require,
+  small {
+    display: none !important;
+  }
+  .form_label {
+    padding-top: 0;
+    margin-bottom: 0;
+  }
 }

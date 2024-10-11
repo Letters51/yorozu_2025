@@ -121,7 +121,7 @@ $re_subject = "送信ありがとうございました";
 
 //フォーム側の「名前」箇所のname属性の値　※自動返信メールの「○○様」の表示で使用します。
 //指定しない、または存在しない場合は、○○様と表示されないだけです。あえて無効にしてもOK
-$dsp_name = '企業名';
+$dsp_name = '相談企業名';
 
 //自動返信メールの冒頭の文言 ※日本語部分のみ変更可
 $remail_text = $replay_txt;
@@ -1006,7 +1006,8 @@ if (($jumpPage == 0 && $sendmail == 1) || ($jumpPage == 0 && ($confirmDsp == 0 &
 		function mailToUser($arr, $dsp_name, $remail_text, $mailFooterDsp, $mailSignature, $encode)
 		{
 			$userBody = '';
-			if (isset($arr[$dsp_name])) $userBody = h($arr[$dsp_name]) . " 様\n";
+			if (isset($arr[$dsp_name])) $userBody = h($arr[$dsp_name]) . " 御中\n";
+			$userBody .= $arr["担当者名"]."様\n\n";
 			$userBody .= $remail_text;
 			$userBody .= "\n＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝\n\n";
 			$userBody .= postToMail($arr); //POSTデータを関数からセット

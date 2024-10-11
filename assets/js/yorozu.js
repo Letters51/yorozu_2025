@@ -318,6 +318,9 @@ function setHeights() {
     const add_participant_btn = document.getElementsByClassName(
       "add_participant_btn"
     );
+    if (add_participant_btn.length < 1) {
+      return;
+    }
     add_participant_btn[0].addEventListener("click", function () {
       //add
       const opens = document.querySelectorAll(".participant_input.show");

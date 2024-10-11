@@ -65,7 +65,9 @@ get_header();
 													<th>
 														<p class="form_label"><span>件名</span></p>
 													</th>
-													<td><textarea class="textarea_event_title" style="resize: none;" size="20" type="text" name="件名" placeholder="<?php echo $event_name; ?>への申込" readonly></textarea></td>
+													<td><textarea class="textarea_event_title" style="resize: none;" type="text" name="件名" placeholder="<?php echo $event_name; ?>への申込" readonly hidden></textarea>
+													<div class="form_label--md"><?php echo $event_name; ?>への申込</div>
+												</td>
 												<tr>
 													<th>
 														<p class="form_label"><span>Email</span><span class="require">必須</span></p>
@@ -88,7 +90,7 @@ get_header();
 													<th>
 														<p class="form_label"><span>電話番号</span><span class="require">必須</span></p>
 													</th>
-													<td><input size="30" type="text" name="連絡のとれる電話番号" placeholder="例：000-000-0000" required /></td>
+													<td><input size="30" type="text" name="連絡のとれる電話番号" placeholder="例：029-224-5339" required /></td>
 												</tr>
 												<tr>
 													<th>

@@ -1019,7 +1019,8 @@ if (($jumpPage == 0 && $sendmail == 1) || ($jumpPage == 0 && ($confirmDsp == 0 &
 		function mailToUser($arr, $dsp_name, $remail_text, $mailFooterDsp, $mailSignature, $encode)
 		{
 			$userBody = '';
-			if (isset($arr[$dsp_name])) $userBody = h($arr[$dsp_name]) . " 様\n";
+			if (isset($arr[$dsp_name])) $userBody = h($arr[$dsp_name]) . " 御中\n";
+			$userBody .= $arr["代表者名"]."様\n\n";
 			$userBody .= $remail_text;
 			$userBody .= "\n＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝\n\n";
 			$userBody .= postToMail($arr); //POSTデータを関数からセット

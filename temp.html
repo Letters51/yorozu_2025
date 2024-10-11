@@ -1,0 +1,57 @@
+<p class="mb_01 ta_center">以下の内容で間違いがなければ、「送信する」ボタンを押してください。</p>
+<table class="form_table confirm_table">
+    <tbody>
+        <tr>
+            <th scope="row">
+                <p class="form_label"><span>Email</span><span class="require">必須</span></p>
+            </th>
+            <td>[multiform "your-email"]</td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <p class="form_label"><span>企業名</span><span class="require">必須</span></p>
+            </th>
+            <td>[multiform "your-company"]</td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <p class="form_label"><span>住所</span><span class="require">必須</span></p><small>（市町村のみでも可）</small>
+            </th>
+            <td>[multiform "your-address"]</td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <p class="form_label"><span>担当者名</span><span class="require">必須</span></p>
+            </th>
+            <td>[multiform "your-name"]</td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <p class="form_label"><span>担当者役職</span><span class="require">必須</span></p>
+            </th>
+            <td>[multiform "your-position"]</td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <p class="form_label"><span>電話番号</span><span class="require">必須</span></p>
+            </th>
+            <td>[multiform "your-number"]</td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <p class="form_label"><span>業種</span><span class="require">必須</span></p>
+            </th>
+            <td>[multiform "your-job"]</td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <p class="form_label"><span>相談内容</span></p>
+            </th>
+            <td>[multiform your-message]</td>
+        </tr>
+    </tbody>
+</table>
+<div class="btn_wrap">
+    <button class="form_btn base_btn base_btn--gray" type="button" value="戻る" onclick="history.back()">戻る</button>
+    <button class="form_btn base_btn base_btn--orange" type="submit" value="送信する">送信する</button>
+</div> [multistep multistep-281 send_email "/form01-thanks/"]

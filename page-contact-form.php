@@ -34,7 +34,7 @@ get_header();
               </tr>
               <tr>
                 <th>
-                  <p class="form_label"><span>相談企業名</span><span class="require">必須</span></p>
+                  <p class="form_label"><span>企業名</span><span class="require">必須</span></p>
                 </th>
                 <td><input size="30" type="text" name="相談企業名" placeholder="例：株式会社 山田商社" required /></td>
               </tr>
@@ -60,7 +60,7 @@ get_header();
                 <th>
                   <p class="form_label"><span>電話番号</span><span class="require">必須</span></p>
                 </th>
-                <td><input size="30" type="text" name="電話番号" placeholder="例：000-0000-0000" required /></td>
+                <td><input size="30" type="text" name="電話番号" placeholder="例：029-224-5339" required /></td>
               </tr>
               <tr>
                 <th>
@@ -72,19 +72,22 @@ get_header();
                 <th>
                   <p class="form_label"><span>相談内容</span></p><small>（担当者が詳しくお聞きしますので、簡潔にご記入いただければ結構です。）</small>
                 </th>
-                <td><textarea name="お問い合わせ内容" cols="50" rows="5"></textarea></td>
+                <td><textarea name="相談内容" cols="50" rows="5"></textarea></td>
               </tr>
               <tr>
-                <th class="nb">紹介機関名<br><small>※紹介機関がある場合は<br>次の３項目をご記載ください。</small><br /></th>
-                <td class="nb"><input name="お問い合わせ内容"></input></td>
+                <td class="nb pb_00" colspan="2"><small>※紹介機関がある場合は次の３項目をご記載ください。</small></td>
               </tr>
               <tr>
-                <th class="nb">紹介機関担当者名<br /></th>
-                <td class="nb"><input name="お問い合わせ内容"></input></td>
+                <th class="nb pb_00"><p class="form_label"><span>紹介機関名</span></p></th>
+                <td class="nb pb_00"><input name="紹介機関名"></input></td>
               </tr>
               <tr>
-                <th>紹介機関電話番号<br /></th>
-                <td><input name="お問い合わせ内容"></input></td>
+                <th class="nb pb_00"><p class="form_label"><span>紹介機関担当者名</span></p></th>
+                <td class="nb pb_00"><input name="紹介機関担当者名"></input></td>
+              </tr>
+              <tr>
+                <th><p class="form_label"><span>紹介機関電話番号</span></p></th>
+                <td><input name="紹介機関電話番号"></input></td>
               </tr>
             </table>
             <p class="ta_center mb_03">

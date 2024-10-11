@@ -41,7 +41,7 @@ get_header();
               </tr>
               <tr>
                 <th>
-                  <p class="form_label"><span>会社名<br>フリガナ</span><span class="require">必須</span></p><small>（市町村のみでも可）</small>
+                  <p class="form_label"><span>会社名<br>フリガナ</span><span class="require">必須</span></p>
                 </th>
                 <td><input size="30" type="text" name="会社名フリガナ" placeholder="例：カブシキガイシャ ヤマダショウシャ" required /></td>
               </tr>
@@ -79,19 +79,19 @@ get_header();
                 <th>
                   <p class="form_label"><span>電話番号</span><span class="require">必須</span></p>
                 </th>
-                <td><input size="30" type="text" name="電話番号" placeholder="例：000-000-0000" required /></td>
+                <td><input size="30" type="text" name="電話番号" placeholder="例：029-224-5339" required /></td>
               </tr>
               <tr>
                 <th>
                   <p class="form_label"><span>FAX番号</span></p>
                 </th>
-                <td><input size="30" type="text" name="FAX番号" placeholder="例：000-000-0000" /></td>
+                <td><input size="30" type="text" name="FAX番号" placeholder="例：029-224-5339" /></td>
               </tr>
               <tr>
                 <th>
                   <p class="form_label"><span>業種</span><span class="require">必須</span></p>
                 </th>
-                <td><input size="30" type="text" name="業種" placeholder="例：エンタメ業" required /></td>
+                <td><input size="30" type="text" name="業種" placeholder="例：建設業" required /></td>
               </tr>
               <tr>
                 <td colspan="2" class="nb">
@@ -100,10 +100,10 @@ get_header();
               </tr>
               <tr>
                 <th class="nb">
-                  <p class="form_label"><span>第１希望日時</span><span class="require">必須</span></p>
+                  <p class="form_label"><span>第1希望日時</span><span class="require">必須</span></p>
                 </th>
                 <td class="nb">
-                  <select name="第１希望日時" id="first_hope">
+                  <select name="第1希望日時" id="first_hope">
                   <option value="" disabled="" selected="">選択してください</option>
                   <?php echo getPossibleDates("tsukuba"); ?>
                   </select>
@@ -140,11 +140,10 @@ get_header();
                 <th>
                   <p class="form_label"><span>②具体的内容</span><span class="require">必須</span></p><small>（担当者が詳しくお聞きしますので、簡潔にご記入いただければ結構です。）</small>
                 </th>
-                <td><textarea name="お問い合わせ内容" cols="50" rows="5"></textarea></td>
+                <td><textarea name="具体的内容" cols="50" rows="5"></textarea></td>
               </tr>
-
               <tr>
-                <th class="nb">紹介機関</th>
+                <th class="nb"><p class="form_label"><span>紹介機関</span></p></th>
                 <td class="nb"><input name="紹介機関"></input></td>
               </tr>
             </table>
