@@ -79,7 +79,7 @@ get_header();
                 <th>
                   <p class="form_label"><span>電話番号</span><span class="require">必須</span></p>
                 </th>
-                <td><input size="30" type="text" name="電話番号" placeholder="例：029-224-5339" required /></td>
+                <td><input size="30" type="tel" name="電話番号" placeholder="例：029-224-5339" required /></td>
               </tr>
               <tr>
                 <th>

@@ -9,6 +9,16 @@
 session_name('PHPMAILFORMSYSTEM');
 session_start();
 
+if (isset($_SESSION['participant02_name'])) {
+  $_SESSION['participant02_name'] = "";
+  $_SESSION['participant02_ruby'] = "";
+  $_SESSION['participant02_position'] = "";
+}
+if (isset($_SESSION['participant03_name'])) {
+  $_SESSION['participant03_name'] = "";
+  $_SESSION['participant03_ruby'] = "";
+  $_SESSION['participant03_position'] = "";
+}
 $thanks_message = $_SESSION['thanks_message'];
 if ($thanks_message == '') {
   //$thanks_message = "お申し込みありがとうございました。追って担当者よりご連絡いたします。";

@@ -72,7 +72,7 @@ get_header();
 													<th>
 														<p class="form_label"><span>Email</span><span class="require">必須</span></p>
 													</th>
-													<td><input size="20" type="text" name="Email" placeholder="例：info@ibaraki-yorozu.go.jp" required /></td>
+													<td><input size="20" type="email" name="Email" placeholder="例：info@ibaraki-yorozu.go.jp" required /></td>
 												</tr>
 												<tr>
 													<th>
@@ -90,7 +90,7 @@ get_header();
 													<th>
 														<p class="form_label"><span>電話番号</span><span class="require">必須</span></p>
 													</th>
-													<td><input size="30" type="text" name="連絡のとれる電話番号" placeholder="例：029-224-5339" required /></td>
+													<td><input size="30" type="tel" name="連絡のとれる電話番号" placeholder="例：029-224-5339" required /></td>
 												</tr>
 												<tr>
 													<th>
@@ -103,7 +103,7 @@ get_header();
 															<input size="30" type="text" name="参加者(1)名前" placeholder="例：山田 太郎" required />
 															<p class="form_label form_label--mini"><span>ふりがな</span><span class="require">必須</span></p>
 															<input size="30" type="text" name="参加者(1)ふりがな" placeholder="例：やまだ たろう" required />
-															<p>役職</p>
+															<p class="form_label form_label--mini"><span>役職</span></p>
 															<input size="30" type="text" name="参加者(1)役職" placeholder="例：部長" />
 														</div>
 
@@ -113,11 +113,11 @@ get_header();
 																<fieldset class="participant_input hide">
 																<?php endif; ?>
 																<p class="participant_number"><span class="participant_number__ttl">参加者（2）</span></p>
-																<p>お名前</p>
+																<p class="form_label form_label--mini"><span>お名前</span></p>
 																<input size="30" type="text" name="参加者(2)名前" />
-																<p>ふりがな</p>
+																<p class="form_label form_label--mini"><span>ふりがな</span></p>
 																<input size="30" type="text" name="参加者(2)ふりがな" />
-																<p>役職</p>
+																<p class="form_label form_label--mini"><span>役職</span></p>
 																<input size="30" type="text" name="参加者(2)役職" />
 																</fieldset>
 																<?php if ($participant03_name != ''): ?>
@@ -126,11 +126,11 @@ get_header();
 																		<fieldset class="participant_input hide">
 																		<?php endif; ?>
 																		<p class="participant_number"><span class="participant_number__ttl">参加者（3）</span></p>
-																		<p>お名前</p>
+																		<p class="form_label form_label--mini"><span>お名前</span></p>
 																		<input size="30" type="text" name="参加者(3)名前" />
-																		<p>ふりがな</p>
+																		<p class="form_label form_label--mini"><span>ふりがな</span></p>
 																		<input size="30" type="text" name="参加者(3)ふりがな" />
-																		<p>役職</p>
+																		<p class="form_label form_label--mini"><span>役職</span></p>
 																		<input size="30" type="text" name="参加者(3)役職" />
 																		</fieldset>
 																		<div class="add_participant_btn_wrapper">
@@ -194,13 +194,13 @@ get_header();
 																														} ?> placeholder="<?php echo $free_03_holder; ?>" /></td>
 												</tr>
 												<tr>
-													<th>備考<br /></th>
+													<th><p class="form_label"><span>備考</span></p></th>
 													<td><textarea name="備考" cols="50" rows="5"></textarea></td>
 												</tr>
 											</table>
 											<p class="ta_center mb_03">
 												<input type="checkbox" name="プライバシーポリシー" value="同意する" id="agree" required />
-												<label for="agree"><a class="td_underline" href="<?php echo home_url(); ?>/privacy">プライバシーポリシー</a>に同意する</label>
+												<label for="agree"><a class="td_underline" href="<?php echo home_url(); ?>/privacy" target="_blank">プライバシーポリシー</a>に同意する</label>
 											</p>
 											<div class="ta_center_table">
 												<button class="form_btn base_btn base_btn--orange" type="submit" type="button" value="確認">申し込み内容を確認する</button>

@@ -79,7 +79,7 @@ get_header();
                 <th>
                   <p class="form_label"><span>電話番号</span><span class="require">必須</span></p>
                 </th>
-                <td><input size="30" type="text" name="電話番号" placeholder="例：029-224-5339" required /></td>
+                <td><input size="30" type="tel" name="電話番号" placeholder="例：029-224-5339" required /></td>
               </tr>
               <tr>
                 <th>
@@ -149,7 +149,7 @@ get_header();
             </table>
             <p class="ta_center mb_03">
               <input type="checkbox" name="プライバシーポリシー" value="同意する" id="agree" required />
-              <label for="agree"><a class="td_underline" href="<?php echo home_url(); ?>/privacy">プライバシーポリシー</a>に同意する</label>
+              <label for="agree"><a class="td_underline" href="<?php echo home_url(); ?>/privacy" target="_blank">プライバシーポリシー</a>に同意する</label>
             </p>
             <div class="ta_center_table">
               <button class="form_btn base_btn base_btn--orange" type="submit" type="button" value="確認">確認する</button>
