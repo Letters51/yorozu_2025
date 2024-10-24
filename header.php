@@ -90,7 +90,7 @@
 
 
     <?php wp_head(); ?>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=Array.prototype.includes"></script>
+    <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=Array.prototype.includes"></script> -->
     <script type="text/javascript" src="https://webfonts.xserver.jp/js/xserver.js"></script>
     <?php
     if (!empty(get_option('inhead_manager'))) {

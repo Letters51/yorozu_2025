@@ -348,7 +348,8 @@ function setHeights() {
       if (last_participant_input != null) {
         last_participant_input.classList.remove("show");
         console.log(last_participant_input);
-        const last_participant_input_item = last_participant_input.querySelectorAll("input");
+        const last_participant_input_item =
+          last_participant_input.querySelectorAll("input");
         //loop through
         Array.prototype.forEach.call(last_participant_input_item, function (e) {
           console.log(e);
@@ -360,8 +361,9 @@ function setHeights() {
     });
 
     function checkButtonStatus() {
-      const participant_inputs =
-        document.querySelectorAll(".participant_input.show");
+      const participant_inputs = document.querySelectorAll(
+        ".participant_input.show"
+      );
       if (participant_inputs.length > 2) {
         add_participant_btn[0].disabled = true;
         add_participant_btn[0].classList.add("disabled");
@@ -381,6 +383,38 @@ function setHeights() {
     checkButtonStatus();
   }
   addParticipantInput();
+
+  //
+  // disable radio buttons
+  function disableRadioButtons() {
+    const radio_buttons = document.querySelectorAll(".form_reasons__radio");
+    Array.prototype.forEach.call(radio_buttons, function (e) {
+      e.checked = false;  
+      e.disabled = true;
+      e.required = false;
+    });
+  }
+  //
+  // enable radio buttons
+  function enableRadioButtons() {
+    const radio_buttons = document.querySelectorAll(".form_reasons__radio");
+    Array.prototype.forEach.call(radio_buttons, function (e) {
+      e.disabled = false;
+    });
+  }
+  //
+  // detect if the input field is on blur
+  function detectBlur() {
+    const input_field = document.getElementById("apply_reason_else");
+    input_field.addEventListener("blur", function () {
+      if (input_field.value == "") {
+        enableRadioButtons();
+      } else {
+        disableRadioButtons();
+      }
+    });
+  }
+  //detectBlur();
 })();
 //onload
 window.addEventListener("load", function () {

@@ -2,7 +2,7 @@
 //get wp header
 require('../../../../wp-config.php');
 $replay_txt = get_theme_mod('contact_form_section_auto_reply', '');
-$thanks_url = $thanks_url . '/contact-form-thanks/';
+
 ?>
 <?php //error_reporting(E_ALL | E_STRICT);
 ##-----------------------------------------------------------------------------------------------------------------##
@@ -40,10 +40,11 @@ if (version_compare(PHP_VERSION, '5.1.0', '>=')) { //PHP5.1.0以上の場合の�
 
 //サイトのトップページのURL　※デフォルトでは送信完了後に「トップページへ戻る」ボタンが表示され、そのリンク先です。
 $site_top = "https://ibaraki-yorozu.go.jp";
+$thanks_url = $site_top . '/contact-form-thanks/';
 
 //管理者のメールアドレス（送信先） ※メールを受け取るメールアドレス(複数指定する場合は「,」で区切ってください 例 $to = "aa@aa.aa,bb@bb.bb";)
-$to = "k-kato@iis-net.or.jp,tajiri@an-flag.jp";
-//$to = "my2nd51@gmail.com";
+//$to = "k-kato@iis-net.or.jp,tajiri@an-flag.jp";
+$to = "my2nd51@gmail.com";
 
 //送信元（差出人）メールアドレス（管理者宛て、及びユーザー宛メールの送信元（差出人）メールアドレスです）
 //必ず実在するメールアドレスでかつ出来る限り設置先サイトのドメインと同じドメインのメールアドレスとしてください（でないと「なりすまし」扱いされます）
@@ -117,7 +118,7 @@ $remail = 1;
 $refrom_name = "";
 
 // 差出人に送信確認メールを送る場合のメールのタイトル（上記で1を設定した場合のみ）
-$re_subject = "ホームページからの送信ありがとうございました【茨城県よろず支援拠点】";
+$re_subject = "よろず相談の申込受付の完了について【茨城県よろず支援拠点】";
 
 //フォーム側の「名前」箇所のname属性の値　※自動返信メールの「○○様」の表示で使用します。
 //指定しない、または存在しない場合は、○○様と表示されないだけです。あえて無効にしてもOK

@@ -7,15 +7,6 @@
  */
 session_name('PHPMAILFORMSYSTEM');
 session_start();
-
-$participant02_name = isset($_SESSION['participant02_name']) ? $_SESSION['participant02_name'] : '';
-$participant02_ruby = isset($_SESSION['participant02_ruby']) ? $_SESSION['participant02_ruby'] : '';
-$participant02_position = isset($_SESSION['participant02_position']) ? $_SESSION['participant02_position'] : '';
-$participant03_name = isset($_SESSION['participant03_name']) ? $_SESSION['participant03_name'] : '';
-$participant03_ruby = isset($_SESSION['participant03_ruby']) ? $_SESSION['participant03_ruby'] : '';
-$participant03_position = isset($_SESSION['participant03_position']) ? $_SESSION['participant03_position'] : '';
-
-
 get_header();
 ?>
 
@@ -66,14 +57,9 @@ get_header();
 														<p class="form_label"><span>件名</span></p>
 													</th>
 													<td><textarea class="textarea_event_title" style="resize: none;" type="text" name="件名" placeholder="<?php echo $event_name; ?>への申込" readonly hidden></textarea>
-													<div class="form_label--md"><?php echo $event_name; ?>への申込</div>
-												</td>
+														<div class="form_label--md"><?php echo $event_name; ?>への申込</div>
+													</td>
 												<tr>
-													<th>
-														<p class="form_label"><span>Email</span><span class="require">必須</span></p>
-													</th>
-													<td><input size="20" type="email" name="Email" placeholder="例：info@ibaraki-yorozu.go.jp" required /></td>
-												</tr>
 												<tr>
 													<th>
 														<p class="form_label"><span>企業名</span><span class="require">必須</span></p>
@@ -96,55 +82,20 @@ get_header();
 													<th>
 														<p class="form_label"><span>参加者</span></p>
 													</th>
-													<td class="pb_03">
+													<td>
 														<div class="participant_input show">
-															<p class="participant_number"><span class="participant_number__ttl">参加者（１）</span></p>
-															<p class="form_label form_label--mini"><span>お名前</span><span class="require">必須</span></p>
-															<input size="30" type="text" name="参加者(1)名前" placeholder="例：山田 太郎" required />
+															<p class="form_label form_label--mini"><span>氏名</span><span class="require">必須</span></p>
+															<input size="30" type="text" name="参加者氏名" placeholder="例：山田 太郎" required />
 															<p class="form_label form_label--mini"><span>ふりがな</span><span class="require">必須</span></p>
-															<input size="30" type="text" name="参加者(1)ふりがな" placeholder="例：やまだ たろう" required />
-															<p class="form_label form_label--mini"><span>役職</span></p>
-															<input size="30" type="text" name="参加者(1)役職" placeholder="例：部長" />
+															<input size="30" type="text" name="参加者ふりがな" placeholder="例：やまだ たろう" required />
+															<p class="form_label form_label--mini"><span>メールアドレス</span><span class="require">必須</span></p>
+															<input size="30" type="email" name="参加者メールアドレス" placeholder="info@ibaraki-yorozu.go.jp" required />
+															<p class="form_label form_label--mini"><span>役職名</span></p>
+															<input size="30" type="text" name="参加者役職名" placeholder="例：部長" />
 														</div>
-
-														<?php if ($participant02_name != ''): ?>
-															<fieldset class="participant_input hide show">
-															<?php else: ?>
-																<fieldset class="participant_input hide">
-																<?php endif; ?>
-																<p class="participant_number"><span class="participant_number__ttl">参加者（2）</span></p>
-																<p class="form_label form_label--mini"><span>お名前</span></p>
-																<input size="30" type="text" name="参加者(2)名前" />
-																<p class="form_label form_label--mini"><span>ふりがな</span></p>
-																<input size="30" type="text" name="参加者(2)ふりがな" />
-																<p class="form_label form_label--mini"><span>役職</span></p>
-																<input size="30" type="text" name="参加者(2)役職" />
-																</fieldset>
-																<?php if ($participant03_name != ''): ?>
-																	<fieldset class="participant_input hide show">
-																	<?php else: ?>
-																		<fieldset class="participant_input hide">
-																		<?php endif; ?>
-																		<p class="participant_number"><span class="participant_number__ttl">参加者（3）</span></p>
-																		<p class="form_label form_label--mini"><span>お名前</span></p>
-																		<input size="30" type="text" name="参加者(3)名前" />
-																		<p class="form_label form_label--mini"><span>ふりがな</span></p>
-																		<input size="30" type="text" name="参加者(3)ふりがな" />
-																		<p class="form_label form_label--mini"><span>役職</span></p>
-																		<input size="30" type="text" name="参加者(3)役職" />
-																		</fieldset>
-																		<div class="add_participant_btn_wrapper">
-																			<button type="button" class="add_participant_btn">追加</button>
-																			<button type="button" class="add_participant_btn add_participant_btn--minus">取消</button>
-																		</div>
 													</td>
 												</tr>
-												<tr>
-													<th>
-														<p class="form_label"><span>申込みの<br>きっかけ</span><span class="require">必須</span></p><small>（どの様にして案内をしりましたか？）</small>
-													</th>
-													<td><textarea size="30" type="text" name="きっかけ" placeholder="例：知人の紹介、ウェブサイト、SNS、広告、その他" required></textarea></td>
-												</tr>
+												<?php get_template_part('template-parts/form-reasons'); ?>
 												<?php
 												//assign form_free_area
 												$free_01_ttl = get_field('free_01_ttl') ? get_field('free_01_ttl') : '自由欄(1)';
@@ -194,7 +145,9 @@ get_header();
 																														} ?> placeholder="<?php echo $free_03_holder; ?>" /></td>
 												</tr>
 												<tr>
-													<th><p class="form_label"><span>備考</span></p></th>
+													<th>
+														<p class="form_label"><span>備考</span></p>
+													</th>
 													<td><textarea name="備考" cols="50" rows="5"></textarea></td>
 												</tr>
 											</table>

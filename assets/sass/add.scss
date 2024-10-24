@@ -360,13 +360,10 @@
   table-layout: fixed;
   margin-bottom: 2rem;
   border-top: 1px solid #ededed;
-  th {
-    //white-space: nowrap !important;
-  }
   &--nbt {
     border-top: none;
   }
-  input,
+  input:not([type="radio"]),
   textarea,
   select {
     width: 100%;
@@ -377,7 +374,7 @@
     padding: 10px;
   }
   th {
-    width: 20%;
+    width: 12em;
     line-height: 1.7;
     small {
       font-weight: 500;
@@ -418,6 +415,7 @@
   align-items: start;
   margin-bottom: 0;
   padding-top: 0.55em;
+  margin-bottom: 0.3em;
   &--mini {
     justify-content: flex-start;
   }
@@ -439,8 +437,8 @@
   font-weight: 700;
   font-size: 1.1em;
   @include md() {
-   padding-top: 15px;
-   margin-bottom: -10px;
+    padding-top: 15px;
+    margin-bottom: -10px;
   }
 }
 .require {
@@ -476,8 +474,6 @@
 }
 
 .participant_input {
-  margin-bottom: 2rem;
-  margin-top: 1rem;
   p {
     margin-bottom: 0;
   }
@@ -582,7 +578,8 @@ textarea.textarea_event_title {
     width: 27%;
   }
   @include md() {
-    th,td {
+    th,
+    td {
       width: 100%;
       display: block;
       border: none;
@@ -648,6 +645,25 @@ input[type="reset"] {
   border: 1px solid #999;
 }
 
+.form_reasons {
+  &__label {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  &__radio {
+    display: inline-block;
+    margin-right: 0.5em;
+    width: 10px;
+  }
+}
+.sub_form {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  label {
+    flex: 0 0 auto;
+  }
+}
 .thanks_text {
   &__event_name {
     font-size: 1.2em;
@@ -681,7 +697,7 @@ input[type="reset"] {
   padding: {
     left: 10px;
     right: 10px;
-  };
+  }
 }
 
 small {

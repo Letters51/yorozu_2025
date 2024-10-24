@@ -1463,3 +1463,15 @@ add_action('manage_posts_custom_column', 'online_manage_custom_column_2args', 10
  * remove auto p tag from contact form 7
  */
 add_filter('wpcf7_autop_or_not', '__return_false');
+/**
+ * return prioritry value
+ */
+function return_prioritry_value($radio,$else) {
+	$ret = "";
+	if ($radio != "") {
+		$ret = $radio;
+	} else {
+		$ret = $else;
+	}
+	return $ret;
+}

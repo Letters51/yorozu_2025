@@ -2,7 +2,7 @@
 //get wp header
 require('../../../../wp-config.php');
 $replay_txt = get_theme_mod('event_mail_auto_reply', '');
-$thanks_url = $thanks_url . '/event-form-thanks/';
+
 
 ?>
 <?php //error_reporting(E_ALL | E_STRICT);
@@ -41,10 +41,11 @@ if (version_compare(PHP_VERSION, '5.1.0', '>=')) { //PHP5.1.0以上の場合の�
 
 //サイトのトップページのURL　※デフォルトでは送信完了後に「トップページへ戻る」ボタンが表示され、そのリンク先です。
 $site_top = "https://ibaraki-yorozu.go.jp";
+$thanks_url = $site_top . '/event-form-thanks/';
 
 //管理者のメールアドレス（送信先） ※メールを受け取るメールアドレス(複数指定する場合は「,」で区切ってください 例 $to = "aa@aa.aa,bb@bb.bb";)
-$to = "k-kato@iis-net.or.jp,tajiri@an-flag.jp";
-//$to = "my2nd51@gmail.com";
+//$to = "k-kato@iis-net.or.jp,tajiri@an-flag.jp";
+$to = "my2nd51@gmail.com";
 
 //送信元（差出人）メールアドレス（管理者宛て、及びユーザー宛メールの送信元（差出人）メールアドレスです）
 //必ず実在するメールアドレスでかつ出来る限り設置先サイトのドメインと同じドメインのメールアドレスとしてください（でないと「なりすまし」扱いされます）
@@ -200,7 +201,7 @@ $csv_dir = "data/";
 
 //CSV保存ファイル名
 //get url param event_id
-$event_id = $_GET['event_id'];
+$event_id = isset($_GET['event_id']) ? $_GET['event_id'] : false;	
 if ($event_id) {
 	$csv_filename = "data" . $event_id . ".csv";
 } else {
@@ -392,14 +393,6 @@ $name_bcc_address_array = array(
 if ($useToken == 1 && $confirmDsp == 1) {
 	session_name('PHPMAILFORMSYSTEM');
 	session_start();
-
-	$_SESSION['participant02_name'] = $_POST['参加者(2)名前'];
-	$_SESSION['participant02_ruby'] = $_POST['参加者(2)ふりがな'];
-	$_SESSION['participant02_position'] = $_POST['参加者(2)役職'];
-	$_SESSION['participant03_name'] = $_POST['参加者(3)名前'];
-	$_SESSION['participant03_ruby'] = $_POST['参加者(3)ふりがな'];
-	$_SESSION['participant03_position'] = $_POST['参加者(3)役職'];
-
 	$_SESSION['event_name'] = $_POST['イベント名'];
 	$_SESSION['thanks_message'] = $_POST['サンクス文面'];
 	$_SESSION['event_id'] = $_POST['投稿ID'];
@@ -841,13 +834,13 @@ if (($jumpPage == 0 && $sendmail == 1) || ($jumpPage == 0 && ($confirmDsp == 0 &
 				$key = h($key);
 				$out = str_replace($replaceStr['before'], $replaceStr['after'], $out); //機種依存文字の置換処理
 
-				if (in_array($key, $ignore_keys) || ($out == "" && $key != "参加者(1)役職")) {
+				if (in_array($key, $ignore_keys)) {
 					//サンクス文面とイベント名は表示しない
 				} else {
 					$html .= "<tr><th>" . $key . "</th><td>" . mb_convert_kana($out, "K", $encode);
 				}
 				$html .= '<input type="hidden" name="' . $key . '" value="' . str_replace(array("<br />", "<br>"), "", mb_convert_kana($out, "K", $encode)) . '" />';
-				if (in_array($key, $ignore_keys) || ($out == "" && $key != "参加者(1)役職")) {
+				if (in_array($key, $ignore_keys)) {
 					//サンクス文面とイベント名は表示しない
 				} else {
 					$html .= "</td></tr>\n";
