@@ -17,9 +17,9 @@
             <label class="form_reasons__label"><input class="form_reasons__radio" type="radio" name="申込みのきっかけ" value="いばらき中小企業グローバル推進機構メルマガ">いばらき中小企業グローバル推進機構メルマガ</label>
             <label class="form_reasons__label"><input class="form_reasons__radio" type="radio" name="申込みのきっかけ" value="茨城県よろず支援拠点HP">茨城県よろず支援拠点HP</label>
             <label class="form_reasons__label"><input class="form_reasons__radio" type="radio" name="申込みのきっかけ" value="茨城県よろず支援拠点コーディネーターからの紹介">茨城県よろず支援拠点コーディネーターからの紹介</label>
-            <label class="form_reasons__label"><input class="form_reasons__radio" type="radio" name="申込みのきっかけ" value="その他" required>その他</label>
-            <div class="sub_form mt_01">
-                <input id="apply_reason_else" type="text" name="申込みのきっかけ（自由欄）" placeholder="その他を選択した場合はこちらをご記入ください">
+            <label class="form_reasons__label"><input id="apply_reason_else_radio" class="form_reasons__radio" type="radio" name="申込みのきっかけ" value="その他">その他</label>
+            <div class="sub_form apply_reason_else_wrap mt_01">
+                <input id="apply_reason_else" type="text" name="申込みのきっかけ記入欄" placeholder="その他の場合の記入欄（任意）">
             </div>
         </div>
     </td>

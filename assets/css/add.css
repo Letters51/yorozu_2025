@@ -644,8 +644,9 @@ input[type=reset] {
 }
 
 .form_reasons__label {
-  display: block;
+  display: table;
   margin-bottom: 0.5rem;
+  cursor: pointer;
 }
 .form_reasons__radio {
   display: inline-block;

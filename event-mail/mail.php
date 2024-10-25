@@ -3,7 +3,6 @@
 require('../../../../wp-config.php');
 $replay_txt = get_theme_mod('event_mail_auto_reply', '');
 
-
 ?>
 <?php //error_reporting(E_ALL | E_STRICT);
 ##-----------------------------------------------------------------------------------------------------------------##
@@ -40,7 +39,7 @@ if (version_compare(PHP_VERSION, '5.1.0', '>=')) { //PHP5.1.0以上の場合の�
 //---------------------------　必須設定　必ず設定してください　-----------------------
 
 //サイトのトップページのURL　※デフォルトでは送信完了後に「トップページへ戻る」ボタンが表示され、そのリンク先です。
-$site_top = "https://ibaraki-yorozu.go.jp";
+$site_top = "https://dev.ibaraki-yorozu.go.jp";
 $thanks_url = $site_top . '/event-form-thanks/';
 
 //管理者のメールアドレス（送信先） ※メールを受け取るメールアドレス(複数指定する場合は「,」で区切ってください 例 $to = "aa@aa.aa,bb@bb.bb";)
@@ -58,7 +57,7 @@ $from = mb_encode_mimeheader("茨城県よろず支援拠点", "UTF-8") . "<info
 $from_add = 0;
 
 //フォームのメールアドレス入力箇所のname属性の値（name="○○"　の○○部分）
-$Email = "Email";
+$Email = "参加者メールアドレス";
 //---------------------------　必須設定　ここまで　------------------------------------
 
 
@@ -85,7 +84,7 @@ $useToken = 1;
 $BccMail = "my2nd51@gmail.com";
 
 // 管理者宛に送信されるメールのタイトル（件名）
-$subject = "ホームページのお問い合わせ";
+$subject = "ホームページのイベント参加申込み";
 
 // 送信確認画面の表示(する=1, しない=0)
 $confirmDsp = 1;
@@ -119,7 +118,7 @@ $remail = 1;
 $refrom_name = "";
 
 // 差出人に送信確認メールを送る場合のメールのタイトル（上記で1を設定した場合のみ）
-$re_subject = "ホームページからの送信ありがとうございました【茨城県よろず支援拠点】";
+$re_subject = "イベント申込受付の完了について【茨城県よろず支援拠点】";
 
 //フォーム側の「名前」箇所のname属性の値　※自動返信メールの「○○様」の表示で使用します。
 //指定しない、または存在しない場合は、○○様と表示されないだけです。あえて無効にしてもOK
@@ -393,9 +392,9 @@ $name_bcc_address_array = array(
 if ($useToken == 1 && $confirmDsp == 1) {
 	session_name('PHPMAILFORMSYSTEM');
 	session_start();
-	$_SESSION['event_name'] = $_POST['イベント名'];
-	$_SESSION['thanks_message'] = $_POST['サンクス文面'];
-	$_SESSION['event_id'] = $_POST['投稿ID'];
+	$_SESSION['event_name'] = isset($_POST['イベント名']) ? $_POST['イベント名'] : "";
+	$_SESSION['thanks_message'] = isset($_POST['サンクス文面']) ? $_POST['サンクス文面'] : "";
+	$_SESSION['event_id'] = isset($_POST['投稿ID']) ? $_POST['投稿ID'] : "";
 }
 
 $ignore_keys = array("サンクス文面", "イベント名", "投稿ID");
@@ -754,7 +753,7 @@ if (($jumpPage == 0 && $sendmail == 1) || ($jumpPage == 0 && ($confirmDsp == 0 &
 			global $hankaku, $hankaku_array, $ConfirmEmail, $ignore_keys;
 			$resArray = '';
 			foreach ($arr as $key => $val) {
-				if (in_array($key, $ignore_keys) || ($val == "" && $key != "参加者(1)役職")) {
+				if (in_array($key, $ignore_keys) || ($key == "申込みのきっかけ記入欄" && $_POST["申込みのきっかけ"] != "その他")) {
 					//サンクス文面とイベント名は表示しない
 				} else {
 					$out = '';
@@ -790,7 +789,6 @@ if (($jumpPage == 0 && $sendmail == 1) || ($jumpPage == 0 && ($confirmDsp == 0 &
 						} elseif ($key == "upfileOriginName" && $out == '') {
 							continue;
 						}
-
 						$resArray .= "【 " . $key . " 】 " . $out . "\n";
 					}
 				}
@@ -834,15 +832,11 @@ if (($jumpPage == 0 && $sendmail == 1) || ($jumpPage == 0 && ($confirmDsp == 0 &
 				$key = h($key);
 				$out = str_replace($replaceStr['before'], $replaceStr['after'], $out); //機種依存文字の置換処理
 
-				if (in_array($key, $ignore_keys)) {
-					//サンクス文面とイベント名は表示しない
+				if (in_array($key, $ignore_keys) || ($key == "申込みのきっかけ記入欄" && $_POST["申込みのきっかけ"] != "その他")) {
+					$html .= '<input type="hidden" name="' . $key . '" value="' . str_replace(array("<br />", "<br>"), "", mb_convert_kana($out, "K", $encode)) . '" />';
 				} else {
 					$html .= "<tr><th>" . $key . "</th><td>" . mb_convert_kana($out, "K", $encode);
-				}
-				$html .= '<input type="hidden" name="' . $key . '" value="' . str_replace(array("<br />", "<br>"), "", mb_convert_kana($out, "K", $encode)) . '" />';
-				if (in_array($key, $ignore_keys)) {
-					//サンクス文面とイベント名は表示しない
-				} else {
+					$html .= '<input type="hidden" name="' . $key . '" value="' . str_replace(array("<br />", "<br>"), "", mb_convert_kana($out, "K", $encode)) . '" />';
 					$html .= "</td></tr>\n";
 				}
 			}

@@ -7,6 +7,8 @@
  */
 session_name('PHPMAILFORMSYSTEM');
 session_start();
+//initialize event_name
+$_SESSION['event_name'] = "";
 get_header();
 ?>
 
@@ -89,7 +91,7 @@ get_header();
 															<p class="form_label form_label--mini"><span>ふりがな</span><span class="require">必須</span></p>
 															<input size="30" type="text" name="参加者ふりがな" placeholder="例：やまだ たろう" required />
 															<p class="form_label form_label--mini"><span>メールアドレス</span><span class="require">必須</span></p>
-															<input size="30" type="email" name="参加者メールアドレス" placeholder="info@ibaraki-yorozu.go.jp" required />
+															<input size="30" type="email" name="参加者メールアドレス" placeholder="例：info@ibaraki-yorozu.go.jp" required />
 															<p class="form_label form_label--mini"><span>役職名</span></p>
 															<input size="30" type="text" name="参加者役職名" placeholder="例：部長" />
 														</div>

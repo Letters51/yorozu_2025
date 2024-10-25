@@ -39,7 +39,7 @@ if (version_compare(PHP_VERSION, '5.1.0', '>=')) { //PHP5.1.0以上の場合の�
 //---------------------------　必須設定　必ず設定してください　-----------------------
 
 //サイトのトップページのURL　※デフォルトでは送信完了後に「トップページへ戻る」ボタンが表示され、そのリンク先です。
-$site_top = "https://ibaraki-yorozu.go.jp";
+$site_top = "https://dev.ibaraki-yorozu.go.jp";
 $thanks_url = $site_top . '/contact-form-thanks/';
 
 //管理者のメールアドレス（送信先） ※メールを受け取るメールアドレス(複数指定する場合は「,」で区切ってください 例 $to = "aa@aa.aa,bb@bb.bb";)
@@ -57,7 +57,7 @@ $from = mb_encode_mimeheader("茨城県よろず支援拠点", "UTF-8") . "<info
 $from_add = 0;
 
 //フォームのメールアドレス入力箇所のname属性の値（name="○○"　の○○部分）
-$Email = "Email";
+$Email = "メールアドレス";
 //---------------------------　必須設定　ここまで　------------------------------------
 
 
@@ -84,7 +84,7 @@ $useToken = 1;
 $BccMail = "my2nd51@gmail.com";
 
 // 管理者宛に送信されるメールのタイトル（件名）
-$subject = "ホームページのお問い合わせ";
+$subject = "ホームページの相談フォーム";
 
 // 送信確認画面の表示(する=1, しない=0)
 $confirmDsp = 1;
@@ -741,42 +741,46 @@ if (($jumpPage == 0 && $sendmail == 1) || ($jumpPage == 0 && ($confirmDsp == 0 &
 			global $hankaku, $hankaku_array, $ConfirmEmail;
 			$resArray = '';
 			foreach ($arr as $key => $val) {
-				$out = '';
-				if (is_array($val)) {
-					foreach ($val as $key02 => $item) {
-						//連結項目の処理
-						if (is_array($item)) {
-							$out .= connect2val($item);
-						} else {
-							$out .= $item . ', ';
+				if (($key == "申込みのきっかけ記入欄" && $_POST["申込みのきっかけ"] != "その他")) {
+					//サンクス文面とイベント名は表示しない
+				} else {
+					$out = '';
+					if (is_array($val)) {
+						foreach ($val as $key02 => $item) {
+							//連結項目の処理
+							if (is_array($item)) {
+								$out .= connect2val($item);
+							} else {
+								$out .= $item . ', ';
+							}
+						}
+						$out = rtrim($out, ', ');
+					} else {
+						$out = $val;
+					} //チェックボックス（配列）追記ここまで
+
+					if (version_compare(PHP_VERSION, '5.1.0', '<=')) { //PHP5.1.0以下の場合のみ実行（7.4でget_magic_quotes_gpcが非推奨になったため）
+						if (get_magic_quotes_gpc()) {
+							$out = stripslashes($out);
 						}
 					}
-					$out = rtrim($out, ', ');
-				} else {
-					$out = $val;
-				} //チェックボックス（配列）追記ここまで
-
-				if (version_compare(PHP_VERSION, '5.1.0', '<=')) { //PHP5.1.0以下の場合のみ実行（7.4でget_magic_quotes_gpcが非推奨になったため）
-					if (get_magic_quotes_gpc()) {
-						$out = stripslashes($out);
-					}
-				}
 
 
-				//全角→半角変換
-				if ($hankaku == 1) {
-					$out = zenkaku2hankaku($key, $out, $hankaku_array);
-				}
-
-				if ($out != "confirm_submit" && $key != "httpReferer" && $key != "upfilePath" && $key != "upfileType" && $key != $ConfirmEmail) {
-
-					if ($key == "upfileOriginName" && $out != '') {
-						$key = '添付ファイル';
-					} elseif ($key == "upfileOriginName" && $out == '') {
-						continue;
+					//全角→半角変換
+					if ($hankaku == 1) {
+						$out = zenkaku2hankaku($key, $out, $hankaku_array);
 					}
 
-					$resArray .= "【 " . $key . " 】 " . $out . "\n";
+					if ($out != "confirm_submit" && $key != "httpReferer" && $key != "upfilePath" && $key != "upfileType" && $key != $ConfirmEmail) {
+
+						if ($key == "upfileOriginName" && $out != '') {
+							$key = '添付ファイル';
+						} elseif ($key == "upfileOriginName" && $out == '') {
+							continue;
+						}
+
+						$resArray .= "【 " . $key . " 】 " . $out . "\n";
+					}
 				}
 			}
 			return $resArray;
@@ -816,10 +820,13 @@ if (($jumpPage == 0 && $sendmail == 1) || ($jumpPage == 0 && ($confirmDsp == 0 &
 				$out = nl2br(h($out)); //※追記 改行コードを<br>タグに変換
 				$key = h($key);
 				$out = str_replace($replaceStr['before'], $replaceStr['after'], $out); //機種依存文字の置換処理
-
-				$html .= "<tr><th>" . $key . "</th><td>" . mb_convert_kana($out, "K", $encode);
-				$html .= '<input type="hidden" name="' . $key . '" value="' . str_replace(array("<br />", "<br>"), "", mb_convert_kana($out, "K", $encode)) . '" />';
-				$html .= "</td></tr>\n";
+				if ($key == "申込みのきっかけ記入欄" && $_POST["申込みのきっかけ"] != "その他") {
+					$html .= '<input type="hidden" name="' . $key . '" value="' . str_replace(array("<br />", "<br>"), "", mb_convert_kana($out, "K", $encode)) . '" />';
+				} else {
+					$html .= "<tr><th>" . $key . "</th><td>" . mb_convert_kana($out, "K", $encode);
+					$html .= '<input type="hidden" name="' . $key . '" value="' . str_replace(array("<br />", "<br>"), "", mb_convert_kana($out, "K", $encode)) . '" />';
+					$html .= "</td></tr>\n";
+				}
 			}
 
 			//添付ファイル表示処理
@@ -1008,7 +1015,7 @@ if (($jumpPage == 0 && $sendmail == 1) || ($jumpPage == 0 && ($confirmDsp == 0 &
 		{
 			$userBody = '';
 			if (isset($arr[$dsp_name])) $userBody = h($arr[$dsp_name]) . " 御中\n";
-			$userBody .= $arr["担当者名"]." 様\n\n";
+			$userBody .= $arr["担当者名"] . " 様\n\n";
 			$userBody .= $remail_text;
 			$userBody .= "\n\n";
 			$userBody .= "下記がご入力いただいた内容です。今一度お確かめください。";

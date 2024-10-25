@@ -415,6 +415,40 @@ function setHeights() {
     });
   }
   //detectBlur();
+
+//
+  // detect if else is checked
+  function detectElse() {
+    let temp_value = "";
+    const radio_buttons = document.querySelectorAll(".form_reasons__radio");
+    const radio_buttons_else = document.querySelector(".form_reasons__radio[value='その他']");
+    const input_field = document.getElementById("apply_reason_else");
+    const apply_reason_else_wrap = document.querySelector(".apply_reason_else_wrap");
+    if(input_field == null) {
+      return;
+    }
+    //add event listener to each radio button
+    Array.prototype.forEach.call(radio_buttons, function (e) {
+      e.addEventListener("change", function () {
+       console.log(e.value);
+       if(e.value == "その他") {
+        input_field.value = temp_value;
+       } else {
+        if(input_field.value != "") {
+          temp_value = input_field.value;
+          input_field.value = "";
+        }
+       }
+      });
+    });
+    console.log(apply_reason_else_wrap);
+    input_field.addEventListener("focus", function () {
+      radio_buttons_else.checked = true;
+      input_field.value = temp_value;
+    });
+  }
+  detectElse();
+
 })();
 //onload
 window.addEventListener("load", function () {

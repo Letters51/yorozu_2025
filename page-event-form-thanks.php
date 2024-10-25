@@ -8,23 +8,16 @@
  */
 session_name('PHPMAILFORMSYSTEM');
 session_start();
-
-if (isset($_SESSION['participant02_name'])) {
-  $_SESSION['participant02_name'] = "";
-  $_SESSION['participant02_ruby'] = "";
-  $_SESSION['participant02_position'] = "";
-}
-if (isset($_SESSION['participant03_name'])) {
-  $_SESSION['participant03_name'] = "";
-  $_SESSION['participant03_ruby'] = "";
-  $_SESSION['participant03_position'] = "";
-}
 $thanks_message = $_SESSION['thanks_message'];
 if ($thanks_message == '') {
   //$thanks_message = "お申し込みありがとうございました。追って担当者よりご連絡いたします。";
 }
 $begining_message = "この度は";
 $event_name = $_SESSION['event_name'];
+if ($event_name == '') {
+  $event_name = "茨城県よろず支援拠点のイベント";
+}
+$event_id = $_SESSION['event_id'];
 $ending_message = "へのお申し込みありがとうございました。追って担当者よりご連絡いたします。";
 get_header();
 ?>
@@ -63,7 +56,11 @@ get_header();
             <div class="entry-content thanks_text">
               <div class="thanks_text__head">
                 <p><?php echo $begining_message; ?></p>
-                <p class="thanks_text__event_name"><?php echo $event_name; ?></p>
+                <?php if ($event_id) { ?>
+                  <a class="thanks_text__event_name" href="<?php echo home_url('/event/' . $event_id); ?>"><?php echo $event_name; ?></a>
+                <?php } else { ?>
+                  <p class="thanks_text__event_name"><?php echo $event_name; ?></p>
+                <?php } ?>
                 <p><?php echo $ending_message; ?></p>
               </div>
               <div class="thanks_text__body">

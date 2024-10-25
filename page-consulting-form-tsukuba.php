@@ -55,14 +55,7 @@ get_header();
                   </select>
                 </td>
               </tr>
-              <tr>
-                <th>
-                  <p class="form_label"><span>相談内容</span><span class="require">必須</span></p><small>（担当者が詳しくお聞きしますので、簡潔にご記入いただければ結構です。）</small>
-                </th>
-                <td><textarea name="相談内容" cols="50" rows="5"></textarea></td>
-              </tr>
-              <?php get_template_part('template-parts/form-reasons'); ?>
-              <?php get_template_part('template-parts/form-referral-agency'); ?>
+              <?php get_template_part('template-parts/form-satelite-bottom'); ?>
             </table>
             <p class="ta_center mb_03">
               <input type="checkbox" name="プライバシーポリシー" value="同意する" id="agree" required />

@@ -55,8 +55,7 @@ get_header();
                   </select>
                 </td>
               </tr>
-              <?php get_template_part('template-parts/form-reasons'); ?>
-              <?php get_template_part('template-parts/form-referral-agency'); ?>
+              <?php get_template_part('template-parts/form-satelite-bottom'); ?>
             </table>
             <p class="ta_center mb_03">
               <input type="checkbox" name="プライバシーポリシー" value="同意する" id="agree" required />
