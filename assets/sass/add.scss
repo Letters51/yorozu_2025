@@ -1,6 +1,12 @@
 @import "_variables.scss";
 @import "_mixin.scss";
-
+input[type="submit"] {
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  &:hover {
+    opacity: 0.7;
+  }
+}
 .mv_btns {
   display: grid;
   gap: 15px;

@@ -28,7 +28,7 @@ get_header();
                 <th>
                   <p class="form_label"><span>企業名</span><span class="require">必須</span></p>
                 </th>
-                <td><input size="30" type="text" name="相談企業名" placeholder="例：株式会社 山田商社" required /></td>
+                <td><input size="30" type="text" name="企業名" placeholder="例：株式会社 山田商社" required /></td>
               </tr>
               <tr>
                 <th>

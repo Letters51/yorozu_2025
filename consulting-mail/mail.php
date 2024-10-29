@@ -39,12 +39,12 @@ if (version_compare(PHP_VERSION, '5.1.0', '>=')) { //PHP5.1.0以上の場合の�
 //---------------------------　必須設定　必ず設定してください　-----------------------
 
 //サイトのトップページのURL　※デフォルトでは送信完了後に「トップページへ戻る」ボタンが表示され、そのリンク先です。
-$site_top = "https://dev.ibaraki-yorozu.go.jp";
+$site_top = home_url();
 $thanks_url = $site_top . '/consulting-form-thanks/';
 
 //管理者のメールアドレス（送信先） ※メールを受け取るメールアドレス(複数指定する場合は「,」で区切ってください 例 $to = "aa@aa.aa,bb@bb.bb";)
-//$to = "k-kato@iis-net.or.jp,tajiri@an-flag.jp";
-$to = "my2nd51@gmail.com";
+$to = "k-kato@iis-net.or.jp,tajiri@an-flag.jp";
+//$to = "my2nd51@gmail.com";
 
 //送信元（差出人）メールアドレス（管理者宛て、及びユーザー宛メールの送信元（差出人）メールアドレスです）
 //必ず実在するメールアドレスでかつ出来る限り設置先サイトのドメインと同じドメインのメールアドレスとしてください（でないと「なりすまし」扱いされます）
@@ -123,7 +123,7 @@ $re_subject = "サテライト個別相談会の申込受付の完了につい�
 
 //フォーム側の「名前」箇所のname属性の値　※自動返信メールの「○○様」の表示で使用します。
 //指定しない、または存在しない場合は、○○様と表示されないだけです。あえて無効にしてもOK
-$dsp_name = '会社名';
+$dsp_name = '企業名';
 
 //自動返信メールの冒頭の文言 ※日本語部分のみ変更可
 $remail_text = $replay_txt;
@@ -194,7 +194,7 @@ $replaceStr['after'] = array('(1)', '(2)', '(3)', '(4)', '(5)', '(6)', '(7)', '(
 
 
 //CSVに保存する(する=1, しない=0)　※「する」場合、dataフォルダを書き込み可能なパーミッション（777等※サーバによる）に変更ください。
-$csv_backup = 1;
+$csv_backup = 0;
 
 //CSV保存先ディレクトリ（書き込み可能なパーミッション（777等※サーバによる）に変更ください）
 $csv_dir = "data/";
@@ -228,8 +228,8 @@ $session_auth = 1;
 
 //上記で認証を利用する場合の認証用ID、パスワード　（重要）必ず変更して下さい！
 //半角英数字（なるべく複雑でかつ11文字以上で指定してください）
-$userid   = 'admin';   // ユーザーID
-$password = '26%e7s5fcW5r2aC';   // パスワード
+$userid   = 'yoadrozumin';  // ユーザーID
+$password = password_hash('xgWv42hCDv4muVxbmx', PASSWORD_DEFAULT);
 
 //----------------------------------------------------------------------
 // CSV保存用設定 （END）
@@ -391,7 +391,6 @@ $name_bcc_address_array = array(
 //----------------------------------------------------------------------
 //トークンチェック用のセッションスタート
 if ($useToken == 1 && $confirmDsp == 1) {
-	session_name('PHPMAILFORMSYSTEM');
 	session_start();
 }
 $encode = "UTF-8"; //このファイルの文字コード定義（変更不可）
@@ -605,13 +604,13 @@ if (($confirmDsp == 0 || $sendmail == 1) && $empty_flag != 1) {
 			<div class="container__inner">
 				<div class="logo_area logo_area--center mb_05">
 					<div class="site-branding">
-						<a href="https://dev.ibaraki-yorozu.go.jp" class="custom-logo-link" rel="home" aria-current="page">
-							<img width="80" height="81" src="https://dev.ibaraki-yorozu.go.jp/wp-content/themes/scratch-master/assets/images/common/top_logo@1x.png" alt="茨城よろず支援拠点ロゴ" data-src="https://dev.ibaraki-yorozu.go.jp/wp-content/themes/scratch-master/assets/images/common/top_logo@1x.png" decoding="async" data-srcset="https://dev.ibaraki-yorozu.go.jp/wp-content/themes/scratch-master/assets/images/common/top_logo@2x.png 2x,https://dev.ibaraki-yorozu.go.jp/wp-content/themes/scratch-master/assets/images/common/top_logo@1x.png 1x" class=" ls-is-cached lazyloaded" data-eio-rwidth="80" data-eio-rheight="81" srcset="https://dev.ibaraki-yorozu.go.jp/wp-content/themes/scratch-master/assets/images/common/top_logo@2x.png 2x,https://dev.ibaraki-yorozu.go.jp/wp-content/themes/scratch-master/assets/images/common/top_logo@1x.png 1x"><noscript><img width="80" height="81" srcset="https://dev.ibaraki-yorozu.go.jp/wp-content/themes/scratch-master/assets/images/common/top_logo@2x.png 2x,https://dev.ibaraki-yorozu.go.jp/wp-content/themes/scratch-master/assets/images/common/top_logo@1x.png 1x" src="https://dev.ibaraki-yorozu.go.jp/wp-content/themes/scratch-master/assets/images/common/top_logo@1x.png" alt="茨城よろず支援拠点ロゴ" data-eio="l"></noscript>
+						<a href="<?php echo home_url(); ?>" class="custom-logo-link" rel="home" aria-current="page">
+							<img width="80" height="81" src="<?php echo home_url(); ?>/wp-content/themes/scratch-master/assets/images/common/top_logo@1x.png" alt="茨城よろず支援拠点ロゴ" data-src="<?php echo home_url(); ?>/wp-content/themes/scratch-master/assets/images/common/top_logo@1x.png" decoding="async" data-srcset="<?php echo home_url(); ?>/wp-content/themes/scratch-master/assets/images/common/top_logo@2x.png 2x,<?php echo home_url(); ?>/wp-content/themes/scratch-master/assets/images/common/top_logo@1x.png 1x" class=" ls-is-cached lazyloaded" data-eio-rwidth="80" data-eio-rheight="81" srcset="<?php echo home_url(); ?>/wp-content/themes/scratch-master/assets/images/common/top_logo@2x.png 2x,<?php echo home_url(); ?>/wp-content/themes/scratch-master/assets/images/common/top_logo@1x.png 1x"><noscript><img width="80" height="81" srcset="<?php echo home_url(); ?>/wp-content/themes/scratch-master/assets/images/common/top_logo@2x.png 2x,<?php echo home_url(); ?>/wp-content/themes/scratch-master/assets/images/common/top_logo@1x.png 1x" src="<?php echo home_url(); ?>/wp-content/themes/scratch-master/assets/images/common/top_logo@1x.png" alt="茨城よろず支援拠点ロゴ" data-eio="l"></noscript>
 						</a>
 					</div><!-- .site-branding -->
 					<div class="site_name">
 						<p class="site_name__rub">中小企業・小規模事業者のための無料経営相談所</p>
-						<a href="https://dev.ibaraki-yorozu.go.jp">
+						<a href="<?php echo home_url(); ?>">
 							<p class="site_name__title singo_maru">茨城県よろず支援拠点</p>
 						</a>
 					</div>
@@ -1022,7 +1021,7 @@ if (($jumpPage == 0 && $sendmail == 1) || ($jumpPage == 0 && ($confirmDsp == 0 &
 		{
 			$userBody = '';
 			if (isset($arr[$dsp_name])) $userBody = h($arr[$dsp_name]) . " 御中\n";
-			$userBody .= $arr["代表者名"] . " 様\n\n";
+			$userBody .= $arr["氏名"] . " 様\n\n";
 			$userBody .= $remail_text;
 			$userBody .= "\n\n";
 			$userBody .= "下記がご入力いただいた内容です。今一度お確かめください。";
@@ -1368,9 +1367,9 @@ if (($jumpPage == 0 && $sendmail == 1) || ($jumpPage == 0 && ($confirmDsp == 0 &
 		function csvDialog($csv_file_path, $userid, $password)
 		{
 
-			if (!file_exists($csv_file_path)) exit('CSVファイルがまだありません。CSV保存機能がONの場合に初回送信時に自動生成されます。');
+			if (!file_exists($csv_file_path)) exit('CSVファイルがまだありません。');
 
-			if (session_name() == 'PHPMAILFORMSYSTEM') {
+			if (session_name() !== 'PHPMAILFORMCSVSYSTEM') {
 				$_SESSION = array(); //既存セッションを破棄(トークン用のセッション)
 				session_destroy(); //既存セッションを破棄(トークン用のセッション)
 			}
@@ -1392,7 +1391,7 @@ if (($jumpPage == 0 && $sendmail == 1) || ($jumpPage == 0 && ($confirmDsp == 0 &
 
 				if (
 					$_POST['userid'] === $userid &&
-					$_POST['password'] === $password
+					password_verify($_POST['password'], $password)
 				) {
 					$oldSid = session_id();
 					session_regenerate_id(TRUE);
@@ -1425,7 +1424,11 @@ if (($jumpPage == 0 && $sendmail == 1) || ($jumpPage == 0 && ($confirmDsp == 0 &
 	</head>
 
 	<body>
-		<?php if (isset($login_error)) echo $login_error; ?>
+		<?php if (isset($login_error) && $login_error != ''): ?>
+			<script>
+				alert('ユーザーIDかパスワードに誤りがあります。');
+			</script>
+		<?php endif; ?>
 		<h1 class="mt_05 mb_02 fs_24 ta_center">相談会フォームCSVダウンロード認証画面</h1>
 		<p class="fs_20 mb_03 ta_center">
 			<?php

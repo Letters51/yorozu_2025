@@ -5,10 +5,7 @@
  *
  * @package scratch
  */
-session_name('PHPMAILFORMSYSTEM');
-session_start();
-//initialize event_name
-$_SESSION['event_name'] = "";
+
 get_header();
 ?>
 
@@ -40,8 +37,9 @@ get_header();
 								if ($is_accepting == 3) {
 									$is_after_deadline = true;
 								}
-								$thanks_message = get_field('thanks-message');
-								$event_name = str_replace("<br>", "\n", get_the_title());
+								$thanks_message = esc_html__(get_field('thanks-message'));
+								$event_name = esc_html(str_replace("<br>", "\n", get_the_title()));
+								$event_name_br = str_replace("\n", "<br>", $event_name);
 								?>
 								<?php if ($is_after_deadline): ?>
 									<hr>
@@ -49,8 +47,13 @@ get_header();
 									<hr>
 								<?php else: ?>
 									<div class="form_wrapper form_wrapper--back">
+										<?php
+										session_start();
+										//initialize event_name
+										$_SESSION['event_name'] = "";
+										?>
 										<form action="<?php echo esc_url(get_template_directory_uri()); ?>/event-mail/mail.php" method="post" enctype="multipart/form-data">
-											<input type="hidden" name="投稿ID" value="<?php echo get_the_ID(); ?>">
+											<input type="hidden" name="投稿ID" value="<?php echo esc_html(get_the_ID()); ?>">
 											<textarea name="サンクス文面" id="thanks_message" hidden value=""><?php echo $thanks_message; ?></textarea>
 											<textarea name="イベント名" id="event_name" hidden value=""><?php echo $event_name; ?></textarea>
 											<table class="form_table form_table--nbt">
@@ -59,7 +62,7 @@ get_header();
 														<p class="form_label"><span>件名</span></p>
 													</th>
 													<td><textarea class="textarea_event_title" style="resize: none;" type="text" name="件名" placeholder="<?php echo $event_name; ?>への申込" readonly hidden></textarea>
-														<div class="form_label--md"><?php echo $event_name; ?>への申込</div>
+														<div class="form_label--md"><?php echo $event_name_br; ?>への申込</div>
 													</td>
 												<tr>
 												<tr>

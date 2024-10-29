@@ -1,17 +1,17 @@
 {
-    "name": "PUBLIC IBARAKI YOROZU",
+    "name": "YOROZU DEVELOPMENT",
     "host": "sv14268.xserver.jp",
     "protocol": "ftp",
     "port": 21,
     "username": "ibayorozu",
     "password": "58b9gmsq",
-    "remotePath": "/ibaraki-yorozu.go.jp/public_html/wp-content/themes/scratch-master",
-    "uploadOnSave": false,
+    "remotePath": "/ibaraki-yorozu.go.jp/public_html/dev.ibaraki-yorozu.go.jp/wp-content/themes/scratch-master/",
+    "uploadOnSave": true,
     "useTempFile": false,
     "openSsh": false,
     "watcher": {
         "files": "**/css/*.css",
-        "autoUpload": false,
+        "autoUpload": true,
         "autoDelete": false
     },
     "ignore": ["**/.vscode/**", "**/.git/**", "**/.DS_Store", "**/._*"]

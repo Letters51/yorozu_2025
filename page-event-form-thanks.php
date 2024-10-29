@@ -6,18 +6,17 @@
  *
  * @package scratch
  */
-session_name('PHPMAILFORMSYSTEM');
 session_start();
-$thanks_message = $_SESSION['thanks_message'];
+$thanks_message = esc_html($_SESSION['thanks_message']);
 if ($thanks_message == '') {
   //$thanks_message = "お申し込みありがとうございました。追って担当者よりご連絡いたします。";
 }
 $begining_message = "この度は";
-$event_name = $_SESSION['event_name'];
+$event_name = esc_html($_SESSION['event_name']);
 if ($event_name == '') {
   $event_name = "茨城県よろず支援拠点のイベント";
 }
-$event_id = $_SESSION['event_id'];
+$event_id = esc_html($_SESSION['event_id']);
 $ending_message = "へのお申し込みありがとうございました。追って担当者よりご連絡いたします。";
 get_header();
 ?>
