@@ -25,27 +25,26 @@ get_header();
 						<?php
 						while (have_posts()) :
 							the_post();
-							get_template_part('template-parts/content', get_post_type()); ?>
-							<h3>申し込み</h3>
+							get_template_part('template-parts/content', get_post_type());
 
-							<div class="form_area">
-								<p>茨城県よろず支援拠点では、中小企業・小規模事業者の皆様のために無料で経営相談を行っております。お気軽にお問い合わせください。専門のコーディネーターが親身になって対応いたします。</p>
-								<!-- diable after the deadline -->
-								<?php
-								$is_after_deadline = false;
-								$is_accepting = esc_html__(get_field('is_accepting'));
-								if ($is_accepting == 3) {
-									$is_after_deadline = true;
-								}
-								$thanks_message = esc_html__(get_field('thanks-message'));
-								$event_name = esc_html(str_replace("<br>", "\n", get_the_title()));
-								$event_name_br = str_replace("\n", "<br>", $event_name);
-								?>
-								<?php if ($is_after_deadline): ?>
-									<hr>
-									<p class="pb_03 mt_03">申込みは締め切られました。</p>
-									<hr>
-								<?php else: ?>
+							$is_after_deadline = false;
+							$is_accepting = esc_html__(get_field('is_accepting'));
+							if ($is_accepting == 3 || $is_accepting == 2) {
+								$is_after_deadline = true;
+							}
+							$deadline_msg = "申込みは締め切られました。";
+							if ($is_accepting == 2) {
+								$deadline_msg = "こちらはご案内のみになります。";
+							}
+							$thanks_message = esc_html__(get_field('thanks-message'));
+							$event_name = esc_html(str_replace("<br>", "\n", get_the_title()));
+							$event_name_br = str_replace("\n", "<br>", $event_name);
+
+						?>
+							<?php if (!$is_after_deadline): ?>
+								<h3>申し込み</h3>
+								<div class="form_area">
+									<p>茨城県よろず支援拠点では、中小企業・小規模事業者の皆様のために無料で経営相談を行っております。お気軽にお問い合わせください。専門のコーディネーターが親身になって対応いたします。</p>
 									<div class="form_wrapper form_wrapper--back">
 										<?php
 										session_start();
@@ -165,8 +164,14 @@ get_header();
 											</div>
 										</form>
 									</div>
+								</div>
+							<?php else: ?>
+								<?php if ($is_accepting == 3): ?>
+									<hr>
+									<p class="pb_03 mt_03"><?php echo $deadline_msg; ?></p>
+									<hr>
 								<?php endif; ?>
-							</div>
+							<?php endif; ?>
 						<?php the_post_navigation(
 								array(
 									'prev_text' => '<span class="nav-subtitle">' . esc_html__('<<', 'scratch') . '</span> <span class="nav-title">%title</span>',

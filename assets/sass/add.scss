@@ -356,7 +356,7 @@ input[type="submit"] {
     max-width: unset;
   }
   @include md() {
-    padding: 0;
+    padding: 0 5px;
   }
 }
 
@@ -715,5 +715,12 @@ small {
 .pt_25_md {
   @include md() {
     padding-top: 25px !important;
+  }
+}
+//
+//
+.breadcrumbs {
+  br {
+    display: none;
   }
 }

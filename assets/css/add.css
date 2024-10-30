@@ -342,7 +342,7 @@ input[type=submit]:hover {
 }
 @media screen and (max-width: 600px) {
   .form_wrapper {
-    padding: 0;
+    padding: 0 5px;
   }
 }
 
@@ -720,4 +720,8 @@ small {
   .pt_25_md {
     padding-top: 25px !important;
   }
+}
+
+.breadcrumbs br {
+  display: none;
 }

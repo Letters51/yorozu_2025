@@ -12,11 +12,17 @@
 
 <head>
     <!-- Analitics -->
-    <?php
-    if (!empty(get_option('ga_manager'))) {
-        echo htmlspecialchars_decode(get_option('ga_manager'), ENT_QUOTES);
-    }
-    ?>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-171485058-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-171485058-1');
+    </script>
     <!-- set title-->
     <?php if (is_front_page()) :
         $page_title = esc_html__(get_bloginfo('name')) . ' - 中小企業・小規模事業者のための無料経営相談所';
@@ -97,23 +103,9 @@
         echo htmlspecialchars_decode(get_option('inhead_manager'), ENT_QUOTES);
     }
     ?>
-
-    <?php
-    $yr_analytics = esc_html__(get_field('analytics_tag'));
-    if (!empty($yr_analytics)) {
-        echo htmlspecialchars_decode($yr_analytics);
-    }
-    ?>
 </head>
 
 <body <?php body_class(); ?>>
-    <!-- tag right after body opens -->
-    <?php
-    if (!empty(get_option('afterbody_manager'))) {
-        htmlspecialchars_decode(get_option('afterbody_manager'), ENT_QUOTES);
-    }
-    ?>
-
     <div class="banner_area singo_maru">
         <a href="<?php echo home_url(); ?>/coronalink/" class="banner_area__half">
             <div class="banner_area__text banner_area__text--link">

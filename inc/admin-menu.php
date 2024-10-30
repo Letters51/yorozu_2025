@@ -33,18 +33,6 @@ final class AddOtherDetail
     }
 }
 
-/** lay 高度な設定メニュー **/
-$arg_other_detail =
-    [
-        'page_title' => 'OtherDetail',
-        'menu_title' => '高度な設定',
-        'capability' => 'manage_options',
-        'menu_slug' => 'other_detail',
-        'icon_url' => 'dashicons-admin-tools',
-        'position' => 10
-    ];
-$add_ohter_detail = new AddOtherDetail($arg_other_detail, $arg_other_detail['menu_slug']);
-$add_ohter_detail->register();
 
 /** lay カスタム投稿設定 **/
 $arg_custom_post =
@@ -58,19 +46,6 @@ $arg_custom_post =
     ];
 $add_custom_post = new AddOtherDetail($arg_custom_post, $arg_custom_post['menu_slug']);
 $add_custom_post->register();
-
-/** lay SNS設定 **/
-$arg_sns_detail =
-    [
-        'page_title' => 'sns',
-        'menu_title' => 'SNS設定',
-        'capability' => 'manage_options',
-        'menu_slug' => 'sns_detail',
-        'icon_url' => 'dashicons-admin-tools',
-        'position' => 16
-    ];
-$arg_sns_detail = new AddOtherDetail($arg_sns_detail, $arg_sns_detail['menu_slug']);
-$arg_sns_detail->register();
 
 
 /* add fields */
@@ -521,3 +496,33 @@ final class AddThumnailinThelist
 
 $add_field = new AddThumnailinThelist();
 $add_field->register();
+
+/**
+ * Adds "Import" button on module list page
+ */
+// csv download column
+function online_manage_columns($columns)
+{
+    if ('event' == get_post_type()) {
+        $columns['csv_download'] = 'CSVダウンロード';
+    }
+    return $columns;
+}
+
+// show post id
+function online_manage_custom_column_2args($column_name, $post_id)
+{
+	// if post_type is event
+	if ('event' == get_post_type($post_id)) {
+		if ('csv_download' == $column_name)
+			//if file exists, show download link
+			if (file_exists(get_template_directory() . '/event-mail/data/data' . $post_id . '.csv')) {
+				echo '<a href="' . home_url() . '/wp-content/themes/scratch-master/event-mail/mail.php?mode=download&event_id=' . $post_id . '" class="button button-primary" target="_blank">CSVダウンロード</a>';
+			} else {
+				echo 'CSVがありません';
+			}
+	}
+}
+
+add_filter('manage_posts_columns', 'online_manage_columns');
+add_action('manage_posts_custom_column', 'online_manage_custom_column_2args', 10, 2);

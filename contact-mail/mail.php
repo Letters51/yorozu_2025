@@ -43,7 +43,7 @@ $site_top = home_url();
 $thanks_url = $site_top . '/contact-form-thanks/';
 
 //管理者のメールアドレス（送信先） ※メールを受け取るメールアドレス(複数指定する場合は「,」で区切ってください 例 $to = "aa@aa.aa,bb@bb.bb";)
-$to = "k-kato@iis-net.or.jp,tajiri@an-flag.jp";
+$to = "yorozu@iis-net.or.jp";
 //$to = "my2nd51@gmail.com";
 
 //送信元（差出人）メールアドレス（管理者宛て、及びユーザー宛メールの送信元（差出人）メールアドレスです）
@@ -81,7 +81,7 @@ $useToken = 1;
 //---------------------- 任意設定　以下は必要に応じて設定してください ------------------------
 
 // Bccで送るメールアドレス(複数指定する場合は「,」で区切ってください 例 $BccMail = "aa@aa.aa,bb@bb.bb";)
-$BccMail = "my2nd51@gmail.com";
+$BccMail = "";
 
 // 管理者宛に送信されるメールのタイトル（件名）
 $subject = "ホームページの相談フォーム";

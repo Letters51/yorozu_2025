@@ -43,7 +43,7 @@ $site_top = home_url();
 $thanks_url = $site_top . '/event-form-thanks/';
 
 //管理者のメールアドレス（送信先） ※メールを受け取るメールアドレス(複数指定する場合は「,」で区切ってください 例 $to = "aa@aa.aa,bb@bb.bb";)
-$to = "k-kato@iis-net.or.jp,tajiri@an-flag.jp";
+$to = "yorozu@iis-net.or.jp";
 //$to = "my2nd51@gmail.com";
 
 //送信元（差出人）メールアドレス（管理者宛て、及びユーザー宛メールの送信元（差出人）メールアドレスです）
@@ -81,7 +81,7 @@ $useToken = 1;
 //---------------------- 任意設定　以下は必要に応じて設定してください ------------------------
 
 // Bccで送るメールアドレス(複数指定する場合は「,」で区切ってください 例 $BccMail = "aa@aa.aa,bb@bb.bb";)
-$BccMail = "my2nd51@gmail.com";
+$BccMail = "";
 
 // 管理者宛に送信されるメールのタイトル（件名）
 $subject = "ホームページのイベント参加申込み";
@@ -227,8 +227,9 @@ $session_auth = 1;
 
 //上記で認証を利用する場合の認証用ID、パスワード　（重要）必ず変更して下さい！
 //半角英数字（なるべく複雑でかつ11文字以上で指定してください）
-$userid   = 'yoadrozumin';   // ユーザーID
-$password = password_hash('xgWv42hCDv4muVxbmx', PASSWORD_DEFAULT);   // パスワード
+$userid   = "yoadrozumin";   // ユーザーID
+$prefix_letters = "xgWv42hCDv4muVxbmx";
+$password = password_hash($prefix_letters, PASSWORD_DEFAULT);   // パスワード
 
 //----------------------------------------------------------------------
 // CSV保存用設定 （END）
@@ -1405,8 +1406,11 @@ if (($jumpPage == 0 && $sendmail == 1) || ($jumpPage == 0 && ($confirmDsp == 0 &
 		//ダウンロードダイアログ
 		function csvDialog($csv_file_path, $userid, $password)
 		{
+			$allowed_ip = ["160.16.149.157", "192.168.0.210", "192.168.0.206", "153.150.53.200"];
+			//check ip address
+			if (!in_array($_SERVER["REMOTE_ADDR"], $allowed_ip)) exit('<p class="error_messe" style="text-align:center; margin-top:50px;">NOT FOUND - アクセスできません -</p>');
 
-			if (!file_exists($csv_file_path)) exit('CSVファイルがまだありません。');
+			if (!file_exists($csv_file_path)) exit('<p class="error_messe" style="text-align:center; margin-top:50px;">CSVファイルがまだありません。</p>');
 
 			if (session_name() !== 'PHPMAILFORMCSVSYSTEM') {
 				$_SESSION = array(); //既存セッションを破棄(トークン用のセッション)
