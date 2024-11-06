@@ -5,7 +5,9 @@
  *
  * @package scratch
  */
-
+session_start();
+//initialize event_name
+$_SESSION['event_name'] = "";
 get_header();
 ?>
 
@@ -46,11 +48,7 @@ get_header();
 								<div class="form_area">
 									<p>茨城県よろず支援拠点では、中小企業・小規模事業者の皆様のために無料で経営相談を行っております。お気軽にお問い合わせください。専門のコーディネーターが親身になって対応いたします。</p>
 									<div class="form_wrapper form_wrapper--back">
-										<?php
-										session_start();
-										//initialize event_name
-										$_SESSION['event_name'] = "";
-										?>
+
 										<form action="<?php echo esc_url(get_template_directory_uri()); ?>/event-mail/mail.php" method="post" enctype="multipart/form-data">
 											<input type="hidden" name="投稿ID" value="<?php echo esc_html(get_the_ID()); ?>">
 											<textarea name="サンクス文面" id="thanks_message" hidden value=""><?php echo $thanks_message; ?></textarea>

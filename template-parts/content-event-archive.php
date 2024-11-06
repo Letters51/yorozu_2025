@@ -17,7 +17,7 @@
 			'meta_query' => array(
 				array(
 					'key' => 'is_accepting',
-					'value' => $_GET['is_accepting'],
+					'value' => esc_html($_GET['is_accepting']),
 					//'compare'=>'LIKE'
 				)
 			)

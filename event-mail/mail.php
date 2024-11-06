@@ -49,7 +49,7 @@ $to = "yorozu@iis-net.or.jp";
 //送信元（差出人）メールアドレス（管理者宛て、及びユーザー宛メールの送信元（差出人）メールアドレスです）
 //必ず実在するメールアドレスでかつ出来る限り設置先サイトのドメインと同じドメインのメールアドレスとしてください（でないと「なりすまし」扱いされます）
 //管理者宛てメールの返信先（reply）はユーザーが入力したメールアドレスになりますので返信時はユーザーのメールアドレスが送信先に設定されます）
-$from = mb_encode_mimeheader("茨城県よろず支援拠点", "UTF-8") . "<info@ibaraki-yorozu.go.jp>";
+$from = mb_encode_mimeheader("茨城県よろず支援拠点", "UTF-8") . "<yorozu@iis-net.or.jp>";
 
 //管理者宛メールの送信元（差出人）にユーザーが入力したメールアドレスを表示する(する=1, しない=0)
 //ユーザーのメールアドレスを含めることでメーラー上で管理しやすくなる機能です。
@@ -139,7 +139,7 @@ $mailSignature = <<< FOOTER
 茨城県水戸市桜川2-2-35
 茨城県産業会館 9階
 TEL:029-224-5339
-MAIL:info@ibaraki-yorozu.go.jp
+MAIL:yorozu@iis-net.or.jp
 ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 
 FOOTER;
@@ -202,9 +202,9 @@ $csv_dir = "data/";
 //get url param event_id
 $event_id = isset($_GET['event_id']) ? $_GET['event_id'] : false;
 if ($event_id) {
-	$csv_filename = "data" . $event_id . ".csv";
+	$csv_filename = "data" . esc_html($event_id) . ".csv";
 } else {
-	$csv_filename = "data" . $_POST['投稿ID'] . ".csv";
+	$csv_filename = "data" . esc_html($_POST['投稿ID']) . ".csv";
 }
 
 //CSVファイルパス（変更禁止）
@@ -1406,7 +1406,7 @@ if (($jumpPage == 0 && $sendmail == 1) || ($jumpPage == 0 && ($confirmDsp == 0 &
 		//ダウンロードダイアログ
 		function csvDialog($csv_file_path, $userid, $password)
 		{
-			$allowed_ip = ["160.16.149.157", "192.168.0.210", "192.168.0.206", "153.150.53.200"];
+			$allowed_ip = ["160.16.149.157", "192.168.0.210", "192.168.0.206", "153.150.53.200","131.147.170.187"];
 			//check ip address
 			if (!in_array($_SERVER["REMOTE_ADDR"], $allowed_ip)) exit('<p class="error_messe" style="text-align:center; margin-top:50px;">NOT FOUND - アクセスできません -</p>');
 
@@ -1476,12 +1476,12 @@ if (($jumpPage == 0 && $sendmail == 1) || ($jumpPage == 0 && ($confirmDsp == 0 &
 		<h2 class="fs_20 ta_center">イベント名</h2>
 		<p class="mb_03 ta_center"><?php
 									//echo event name from event_id
-									echo get_the_title($_GET['event_id']);
+									echo get_the_title(esc_html($_GET['event_id']));
 									?></p>
 		<div id="login_form">
 			<p class="mb_03 ta_center">CSVをダウンロードするには認証する必要があります。<br />
 				ID、パスワードを記述して下さい。<br />管理者以外のアクセスは固くお断りします。</p>
-			<form action="?mode=download&event_id=<?php echo $_GET['event_id']; ?>" method="post">
+			<form action="?mode=download&event_id=<?php echo esc_html($_GET['event_id']); ?>" method="post">
 				<label for="userid">ユーザーID</label>
 				<input class="input mb_02" type="text" name="userid" id="userid" value="" style="ime-mode:disabled" required />
 				<label for="password">パスワード</label>
@@ -1498,7 +1498,7 @@ if (($jumpPage == 0 && $sendmail == 1) || ($jumpPage == 0 && ($confirmDsp == 0 &
 				//reset cookie
 				header('Content-Type: application/octet-stream');
 				//header('Content-Disposition: attachment; filename=' . date('Y-m-d-H-i') . '.csv');
-				header('Content-Disposition: attachment; filename=' . 'data' . $_GET['event_id'] . '.csv');
+				header('Content-Disposition: attachment; filename=' . 'data' . esc_html($_GET['event_id']) . '.csv');
 				header('Content-Transfer-Encoding: binary');
 				header('Content-Length: ' . filesize($csv_file_path));
 				readfile($csv_file_path);
