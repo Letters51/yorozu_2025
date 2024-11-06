@@ -1030,7 +1030,7 @@ if (($jumpPage == 0 && $sendmail == 1) || ($jumpPage == 0 && ($confirmDsp == 0 &
 			$userBody .= $remail_text;
 			if (!empty($_SESSION['thanks_message'])) {
 				$userBody .= "\n\n";
-				$userBody .= $_SESSION['thanks_message'];
+				$userBody .= esc_html($_SESSION['thanks_message']);
 			}
 			$userBody .= "\n\n";
 			$userBody .= "下記がご入力いただいた内容です。今一度お確かめください。";
