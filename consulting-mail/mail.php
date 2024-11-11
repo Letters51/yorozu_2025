@@ -201,12 +201,12 @@ $csv_dir = "data/";
 
 
 //get url param event_id
-$city = isset($_GET['city']) ? $_GET['city'] : false;
-if ($city) {
-	$csv_filename = "data_" . esc_html($city) . ".csv";
-} else {
-	$csv_filename = "data_" . esc_html($_POST['サテライトID']) . ".csv";
-}
+$city = isset($_GET['city']) ? esc_html($_GET['city']) : false;
+///if ($city) {
+///	$csv_filename = "data_" . esc_html($city) . ".csv";
+///} else {
+///	$csv_filename = "data_" . esc_html($_POST['サテライトID']) . ".csv";
+//}
 
 //CSVファイルパス（変更禁止）
 $csv_file_path = $csv_dir . $csv_filename;

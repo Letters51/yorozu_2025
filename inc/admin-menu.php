@@ -501,28 +501,28 @@ $add_field->register();
  * Adds "Import" button on module list page
  */
 // csv download column
-function online_manage_columns($columns)
-{
-    if ('event' == get_post_type()) {
-        $columns['csv_download'] = 'CSVダウンロード';
-    }
-    return $columns;
-}
-
-// show post id
-function online_manage_custom_column_2args($column_name, $post_id)
-{
-	// if post_type is event
-	if ('event' == get_post_type($post_id)) {
-		if ('csv_download' == $column_name)
-			//if file exists, show download link
-			if (file_exists(get_template_directory() . '/event-mail/data/data' . $post_id . '.csv')) {
-				echo '<a href="' . home_url() . '/wp-content/themes/scratch-master/event-mail/mail.php?mode=download&event_id=' . $post_id . '" class="button button-primary" target="_blank">CSVダウンロード</a>';
-			} else {
-				echo 'CSVがありません';
-			}
-	}
-}
-
-add_filter('manage_posts_columns', 'online_manage_columns');
-add_action('manage_posts_custom_column', 'online_manage_custom_column_2args', 10, 2);
+//function online_manage_columns($columns)
+//{
+//    if ('event' == get_post_type()) {
+//        $columns['csv_download'] = 'CSVダウンロード';
+//    }
+//    return $columns;
+//}
+//
+//// show post id
+//function online_manage_custom_column_2args($column_name, $post_id)
+//{
+//	// if post_type is event
+//	if ('event' == get_post_type($post_id)) {
+//		if ('csv_download' == $column_name)
+//			//if file exists, show download link
+//			if (file_exists(get_template_directory() . '/event-mail/data/data' . $post_id . '.csv')) {
+//				echo '<a href="' . home_url() . '/wp-content/themes/scratch-master/event-mail/mail.php?mode=download&event_id=' . $post_id . '" class="button button-primary" target="_blank">CSVダウンロード</a>';
+//			} else {
+//				echo 'CSVがありません';
+//			}
+//	}
+//}
+//
+//add_filter('manage_posts_columns', 'online_manage_columns');
+//add_action('manage_posts_custom_column', 'online_manage_custom_column_2args', 10, 2);
