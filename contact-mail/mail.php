@@ -65,11 +65,11 @@ $Email = "メールアドレス";
 
 //スパム防止のためのリファラチェック（フォーム側とこのファイルが同一ドメインであるかどうかのチェック）(する=1, しない=0)
 //※有効にするにはこのファイルとフォームのページが同一ドメイン内にある必要があります
-$Referer_check = 0;
+$Referer_check = 1;
 
 //リファラチェックを「する」場合のドメイン ※設置するサイトのドメインを指定して下さい。
 //もしこの設定が間違っている場合は送信テストですぐに気付けます。
-$Referer_check_domain = "php-factory.net";
+$Referer_check_domain = "ibaraki-yorozu.go.jp";
 
 /*セッションによるワンタイムトークン（CSRF対策、及びスパム防止）(する=1, しない=0)
 ※ただし、この機能を使う場合は↓の送信確認画面の表示が必須です。（デフォルトではON（1）になっています）
@@ -449,7 +449,7 @@ if (isset($_FILES[$upfile_key])) {
 					}
 				}
 				if ($upfile_name_check != 'checkOK') {
-					$errm .= "<p class=\"error_messe\">「" . $_FILES[$upfile_key]['name'][$i] . "」は許可されていない拡張子です。</p>\n";
+					$errm .= "<p class=\"error_messe\">「" . htmlspecialchars($_FILES[$upfile_key]['name'][$i], ENT_QUOTES, 'UTF-8') . "」は許可されていない拡張子です。</p>\n";
 					$empty_flag = 1;
 				} else {
 
@@ -483,7 +483,7 @@ if (isset($_FILES[$upfile_key])) {
 					}
 				}
 			} else {
-				$errm .= "<p class=\"error_messe\">「" . $_FILES[$upfile_key]['name'][$i] . "」はファイルサイズが大きすぎます。</p>\n";
+				$errm .= "<p class=\"error_messe\">「" . htmlspecialchars($_FILES[$upfile_key]['name'][$i], ENT_QUOTES, 'UTF-8') . "」はファイルサイズが大きすぎます。</p>\n";
 				$empty_flag = 1;
 			}
 		}
@@ -511,7 +511,7 @@ if (empty($errm)) {
 		if ($key == $Email) $post_mail = h($val);
 		if ($key == $Email && $mail_check == 1 && !empty($val)) {
 			if (!checkMail($val)) {
-				$errm .= "<p class=\"error_messe\">【" . $key . "】はメールアドレスの形式が正しくありません。</p>\n";
+				$errm .= "<p class=\"error_messe\">【" . htmlspecialchars($key, ENT_QUOTES, 'UTF-8') . "】はメールアドレスの形式が正しくありません。</p>\n";
 				$empty_flag = 1;
 			}
 		}
@@ -778,7 +778,7 @@ if (($jumpPage == 0 && $sendmail == 1) || ($jumpPage == 0 && ($confirmDsp == 0 &
 							continue;
 						}
 
-						$resArray .= "【 " . $key . " 】 " . $out . "\n";
+						$resArray .= "【 " . htmlspecialchars($key, ENT_QUOTES, 'UTF-8') . " 】 " . htmlspecialchars($out, ENT_QUOTES, 'UTF-8') . "\n";
 					}
 				}
 			}
@@ -835,7 +835,7 @@ if (($jumpPage == 0 && $sendmail == 1) || ($jumpPage == 0 && ($confirmDsp == 0 &
 				for ($i = 0; $i < $file_count; $i++, $j++) {
 					//添付があったらファイル名表示
 					if (!empty($upFilePath[$i])) {
-						$html .= "<tr><th>添付ファイル名{$j}.</th><td>{$_FILES[$upfile_key]['name'][$i]}</td></tr>\n";
+						$html .= "<tr><th>添付ファイル名{$j}.</th><td>" . htmlspecialchars($_FILES[$upfile_key]['name'][$i], ENT_QUOTES, 'UTF-8') . "</td></tr>\n";
 					}
 				}
 			}
@@ -1063,7 +1063,7 @@ if (($jumpPage == 0 && $sendmail == 1) || ($jumpPage == 0 && ($confirmDsp == 0 &
 					}
 				}
 				if ($existsFalg != 1) {
-					$res['errm'] .= "<p class=\"error_messe\">【" . $requireVal . "】が未選択です。</p>\n";
+					$res['errm'] .= "<p class=\"error_messe\">【" . htmlspecialchars($requireVal, ENT_QUOTES, 'UTF-8') . "】が未選択です。</p>\n";
 					$res['empty_flag'] = 1;
 				}
 			}

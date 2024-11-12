@@ -1449,3 +1449,15 @@ function return_prioritry_value($radio,$else) {
 	}
 	return $ret;
 }
+
+function kaiza_filter_rest_endpoints( $endpoints ) {
+    /* REST APIでユーザー情報取得を無効にする */
+    if ( isset( $endpoints['/wp/v2/users'] ) ) {
+        unset( $endpoints['/wp/v2/users'] );
+    }
+    if ( isset( $endpoints['/wp/v2/users/(?P<id>[\d]+)'] ) ) {
+        unset( $endpoints['/wp/v2/users/(?P<id>[\d]+)'] );
+    }
+    return $endpoints;
+}
+add_filter( 'rest_endpoints', 'kaiza_filter_rest_endpoints', 10, 1 );

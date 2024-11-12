@@ -392,9 +392,9 @@ $name_bcc_address_array = array(
 //トークンチェック用のセッションスタート
 if ($useToken == 1 && $confirmDsp == 1) {
 	session_start();
-	$_SESSION['event_name'] = isset($_POST['イベント名']) ? $_POST['イベント名'] : "";
-	$_SESSION['thanks_message'] = isset($_POST['サンクス文面']) ? $_POST['サンクス文面'] : "";
-	$_SESSION['event_id'] = isset($_POST['投稿ID']) ? $_POST['投稿ID'] : "";
+	$_SESSION['event_name'] = isset($_POST['イベント名']) ? htmlspecialchars($_POST['イベント名'], ENT_QUOTES, 'UTF-8') : "";
+	$_SESSION['thanks_message'] = isset($_POST['サンクス文面']) ? htmlspecialchars($_POST['サンクス文面'], ENT_QUOTES, 'UTF-8') : "";
+	$_SESSION['event_id'] = isset($_POST['投稿ID']) ? htmlspecialchars($_POST['投稿ID'], ENT_QUOTES, 'UTF-8') : "";
 }
 
 $ignore_keys = array("サンクス文面", "イベント名", "投稿ID");
@@ -462,7 +462,7 @@ if (isset($_FILES[$upfile_key])) {
 					}
 				}
 				if ($upfile_name_check != 'checkOK') {
-					$errm .= "<p class=\"error_messe\">「" . htmlspecialchars($_FILES[$upfile_key]['name'][$i], ENT_QUOTES, 'UTF-8') . "」は許可されていない拡張子です。</p>\n";
+					$errm .= "<p class=\"error_messe\">「" . $_FILES[$upfile_key]['name'][$i] . "」は許可されていない拡張子です。</p>\n";
 					$empty_flag = 1;
 				} else {
 
@@ -496,7 +496,7 @@ if (isset($_FILES[$upfile_key])) {
 					}
 				}
 			} else {
-				$errm .= "<p class=\"error_messe\">「" . htmlspecialchars($_FILES[$upfile_key]['name'][$i], ENT_QUOTES, 'UTF-8') . "」はファイルサイズが大きすぎます。</p>\n";
+				$errm .= "<p class=\"error_messe\">「" . $_FILES[$upfile_key]['name'][$i] . "」はファイルサイズが大きすぎます。</p>\n";
 				$empty_flag = 1;
 			}
 		}
@@ -524,7 +524,7 @@ if (empty($errm)) {
 		if ($key == $Email) $post_mail = h($val);
 		if ($key == $Email && $mail_check == 1 && !empty($val)) {
 			if (!checkMail($val)) {
-				$errm .= "<p class=\"error_messe\">【" . htmlspecialchars($key, ENT_QUOTES, 'UTF-8') . "】はメールアドレスの形式が正しくありません。</p>\n";
+				$errm .= "<p class=\"error_messe\">【" . $key . "】はメールアドレスの形式が正しくありません。</p>\n";
 				$empty_flag = 1;
 			}
 		}
@@ -789,7 +789,7 @@ if (($jumpPage == 0 && $sendmail == 1) || ($jumpPage == 0 && ($confirmDsp == 0 &
 						} elseif ($key == "upfileOriginName" && $out == '') {
 							continue;
 						}
-						$resArray .= "【 " . htmlspecialchars($key, ENT_QUOTES, 'UTF-8') . " 】 " . htmlspecialchars($out, ENT_QUOTES, 'UTF-8') . "\n";
+						$resArray .= "【 " . $key . " 】 " . $out . "\n";
 					}
 				}
 			}
@@ -848,7 +848,7 @@ if (($jumpPage == 0 && $sendmail == 1) || ($jumpPage == 0 && ($confirmDsp == 0 &
 				for ($i = 0; $i < $file_count; $i++, $j++) {
 					//添付があったらファイル名表示
 					if (!empty($upFilePath[$i])) {
-						$html .= "<tr><th>添付ファイル名{$j}.</th><td>" . htmlspecialchars($_FILES[$upfile_key]['name'][$i], ENT_QUOTES, 'UTF-8') . "</td></tr>\n";
+						$html .= "<tr><th>添付ファイル名{$j}.</th><td>{$_FILES[$upfile_key]['name'][$i]}</td></tr>\n";
 					}
 				}
 			}
@@ -1080,7 +1080,7 @@ if (($jumpPage == 0 && $sendmail == 1) || ($jumpPage == 0 && ($confirmDsp == 0 &
 					}
 				}
 				if ($existsFalg != 1) {
-					$res['errm'] .= "<p class=\"error_messe\">【" . htmlspecialchars($requireVal, ENT_QUOTES, 'UTF-8') . "】が未選択です。</p>\n";
+					$res['errm'] .= "<p class=\"error_messe\">【" . $requireVal . "】が未選択です。</p>\n";
 					$res['empty_flag'] = 1;
 				}
 			}
