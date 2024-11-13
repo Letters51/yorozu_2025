@@ -30,7 +30,7 @@ get_header();
 							get_template_part('template-parts/content', get_post_type());
 
 							$is_after_deadline = false;
-							$is_accepting = esc_html__(get_field('is_accepting'));
+							$is_accepting = esc_html(get_field('is_accepting'));
 							if ($is_accepting == 3 || $is_accepting == 2) {
 								$is_after_deadline = true;
 							}
@@ -38,7 +38,7 @@ get_header();
 							if ($is_accepting == 2) {
 								$deadline_msg = "こちらはご案内のみになります。";
 							}
-							$thanks_message = esc_html__(get_field('thanks-message'));
+							$thanks_message = esc_html(get_field('thanks-message'));
 							$event_name = esc_html(str_replace("<br>", "\n", get_the_title()));
 							$event_name_br = str_replace("\n", "<br>", $event_name);
 
@@ -51,15 +51,15 @@ get_header();
 
 										<form action="<?php echo esc_url(get_template_directory_uri()); ?>/event-mail/mail.php" method="post" enctype="multipart/form-data">
 											<input type="hidden" name="投稿ID" value="<?php echo esc_html(get_the_ID()); ?>">
-											<textarea name="サンクス文面" id="thanks_message" hidden value=""><?php echo $thanks_message; ?></textarea>
-											<textarea name="イベント名" id="event_name" hidden value=""><?php echo $event_name; ?></textarea>
+											<textarea name="サンクス文面" id="thanks_message" hidden><?php echo esc_html($thanks_message); ?></textarea>
+											<textarea name="イベント名" id="event_name" hidden><?php echo esc_html($event_name); ?></textarea>
 											<table class="form_table form_table--nbt">
 												<tr>
 													<th>
 														<p class="form_label"><span>件名</span></p>
 													</th>
-													<td><textarea class="textarea_event_title" style="resize: none;" type="text" name="件名" placeholder="<?php echo $event_name; ?>への申込" readonly hidden></textarea>
-														<div class="form_label--md"><?php echo $event_name_br; ?>への申込</div>
+													<td><textarea class="textarea_event_title" style="resize: none;" type="text" name="件名" placeholder="<?php echo esc_html($event_name); ?>への申込" readonly hidden></textarea>
+														<div class="form_label--md"><?php echo esc_html($event_name_br); ?>への申込</div>
 													</td>
 												<tr>
 												<tr>
@@ -100,51 +100,51 @@ get_header();
 												<?php get_template_part('template-parts/form-reasons'); ?>
 												<?php
 												//assign form_free_area
-												$free_01_ttl = get_field('free_01_ttl') ? get_field('free_01_ttl') : '自由欄(1)';
-												$free_01_holder = get_field('free_01_holder') ? get_field('free_01_holder') : '';
-												$free_01_required = get_field('free_01_required') ? get_field('free_01_required') : '';
-												$free_02_ttl = get_field('free_02_ttl') ? get_field('free_02_ttl') : '自由欄(2)';
-												$free_02_holder = get_field('free_02_holder') ? get_field('free_02_holder') : '';
-												$free_02_required = get_field('free_02_required') ? get_field('free_02_required') : '';
-												$free_03_ttl = get_field('free_03_ttl') ? get_field('free_03_ttl') : '自由欄(3)';
-												$free_03_holder = get_field('free_03_holder') ? get_field('free_03_holder') : '';
-												$free_03_required = get_field('free_03_required') ? get_field('free_03_required') : '';
+												$free_01_ttl = esc_html(get_field('free_01_ttl')) ? esc_html(get_field('free_01_ttl')) : '自由欄(1)';
+												$free_01_holder = esc_html(get_field('free_01_holder')) ? esc_html(get_field('free_01_holder')) : '';
+												$free_01_required = esc_html(get_field('free_01_required')) ? esc_html(get_field('free_01_required')) : '';
+												$free_02_ttl = esc_html(get_field('free_02_ttl')) ? esc_html(get_field('free_02_ttl')) : '自由欄(2)';
+												$free_02_holder = esc_html(get_field('free_02_holder')) ? esc_html(get_field('free_02_holder')) : '';
+												$free_02_required = esc_html(get_field('free_02_required')) ? esc_html(get_field('free_02_required')) : '';
+												$free_03_ttl = esc_html(get_field('free_03_ttl')) ? esc_html(get_field('free_03_ttl')) : '自由欄(3)';
+												$free_03_holder = esc_html(get_field('free_03_holder')) ? esc_html(get_field('free_03_holder')) : '';
+												$free_03_required = esc_html(get_field('free_03_required')) ? esc_html(get_field('free_03_required')) : '';
 												?>
 												<tr <?php if ($free_01_ttl == '自由欄(1)') {
 														echo "class='hide_row'";
 													} ?>>
 													<th>
-														<p class="form_label"><span><?php echo $free_01_ttl; ?></span><?php if ($free_01_required) {
+														<p class="form_label"><span><?php echo esc_html($free_01_ttl); ?></span><?php if ($free_01_required) {
 																															echo '<span class="require">必須</span>';
 																														} ?></p>
 													</th>
-													<td><input size="30" type="text" name="<?php echo $free_01_ttl; ?>" <?php if ($free_01_required) {
+													<td><input size="30" type="text" name="<?php echo esc_html($free_01_ttl); ?>" <?php if ($free_01_required) {
 																															echo " required";
-																														} ?> placeholder="<?php echo $free_01_holder; ?>" /></td>
+																														} ?> placeholder="<?php echo esc_html($free_01_holder); ?>" /></td>
 												</tr>
 												<tr <?php if ($free_02_ttl == '自由欄(2)') {
 														echo "class='hide_row'";
 													} ?>>
 													<th>
-														<p class="form_label"><span><?php echo $free_02_ttl; ?></span><?php if ($free_02_required) {
+														<p class="form_label"><span><?php echo esc_html($free_02_ttl); ?></span><?php if ($free_02_required) {
 																															echo '<span class="require">必須</span>';
 																														} ?></p>
 													</th>
-													<td><input size="30" type="text" name="<?php echo $free_02_ttl; ?>" <?php if ($free_02_required) {
+													<td><input size="30" type="text" name="<?php echo esc_html($free_02_ttl); ?>" <?php if ($free_02_required) {
 																															echo " required";
-																														} ?> placeholder="<?php echo $free_02_holder; ?>" /></td>
+																														} ?> placeholder="<?php echo esc_html($free_02_holder); ?>" /></td>
 												</tr>
 												<tr <?php if ($free_03_ttl == '自由欄(3)') {
 														echo "class='hide_row'";
 													} ?>>
 													<th>
-														<p class="form_label"><span><?php echo $free_03_ttl; ?></span><?php if ($free_03_required) {
+														<p class="form_label"><span><?php echo esc_html($free_03_ttl); ?></span><?php if ($free_03_required) {
 																															echo '<span class="require">必須</span>';
 																														} ?></p>
 													</th>
-													<td><input size="30" type="text" name="<?php echo $free_03_ttl; ?>" <?php if ($free_03_required) {
+													<td><input size="30" type="text" name="<?php echo esc_html($free_03_ttl); ?>" <?php if ($free_03_required) {
 																															echo " required";
-																														} ?> placeholder="<?php echo $free_03_holder; ?>" /></td>
+																														} ?> placeholder="<?php echo esc_html($free_03_holder); ?>" /></td>
 												</tr>
 												<tr>
 													<th>
@@ -155,7 +155,7 @@ get_header();
 											</table>
 											<p class="ta_center mb_03">
 												<input type="checkbox" name="プライバシーポリシー" value="同意する" id="agree" required />
-												<label for="agree"><a class="td_underline" href="<?php echo home_url(); ?>/privacy" target="_blank">プライバシーポリシー</a>に同意する</label>
+												<label for="agree"><a class="td_underline" href="<?php echo esc_url(home_url()); ?>/privacy" target="_blank">プライバシーポリシー</a>に同意する</label>
 											</p>
 											<div class="ta_center_table">
 												<button class="form_btn base_btn base_btn--orange" type="submit" type="button" value="確認">申し込み内容を確認する</button>
@@ -166,7 +166,7 @@ get_header();
 							<?php else: ?>
 								<?php if ($is_accepting == 3): ?>
 									<hr>
-									<p class="pb_03 mt_03"><?php echo $deadline_msg; ?></p>
+									<p class="pb_03 mt_03"><?php echo esc_html($deadline_msg); ?></p>
 									<hr>
 								<?php endif; ?>
 							<?php endif; ?>
